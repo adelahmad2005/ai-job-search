@@ -1,0 +1,33 @@
+{
+  "location_pattern": "United Arab Emirates|\\bUAE\\b|Dubai|Abu Dhabi|Sharjah|Ajman|Ras Al Khaimah|Fujairah|, AE\\b|^AE$",
+  "companies": [
+    { "name": "NVIDIA", "ats": "workday", "network": true, "host": "nvidia.wd5.myworkdayjobs.com", "tenant": "nvidia", "site": "NVIDIAExternalCareerSite" },
+    { "name": "Red Hat", "ats": "workday", "network": true, "host": "redhat.wd5.myworkdayjobs.com", "tenant": "redhat", "site": "jobs" },
+    { "name": "Broadcom (VMware)", "ats": "workday", "network": true, "host": "broadcom.wd1.myworkdayjobs.com", "tenant": "broadcom", "site": "External_Career" },
+    { "name": "IBM", "ats": "ibm", "network": true, "careers_url": "https://www.ibm.com/careers/search" },
+    { "name": "Dell Technologies", "ats": "manual", "network": true, "careers_url": "https://jobs.dell.com/en/location/united-arab-emirates-jobs/375/290557/2", "note": "Dell's Workday API rejects automated requests (HTTP 422); LinkedIn and Indeed also carry Dell UAE roles" },
+
+    { "name": "Cisco", "ats": "workday", "host": "cisco.wd5.myworkdayjobs.com", "tenant": "cisco", "site": "Cisco_Careers" },
+    { "name": "CrowdStrike", "ats": "workday", "host": "crowdstrike.wd5.myworkdayjobs.com", "tenant": "crowdstrike", "site": "crowdstrikecareers" },
+    { "name": "Trend Micro", "ats": "workday", "host": "trendmicro.wd3.myworkdayjobs.com", "tenant": "trendmicro", "site": "External" },
+    { "name": "HPE", "ats": "workday", "host": "hpe.wd5.myworkdayjobs.com", "tenant": "hpe", "site": "Jobsathpe" },
+    { "name": "Fortinet", "ats": "oracle", "host": "edel.fa.us2.oraclecloud.com", "site": "CX_1" },
+    { "name": "Oracle", "ats": "oracle", "host": "eeho.fa.us2.oraclecloud.com", "site": "CX_45001" },
+    { "name": "Microsoft", "ats": "microsoft", "careers_url": "https://jobs.careers.microsoft.com" },
+    { "name": "Amazon / AWS", "ats": "amazon", "careers_url": "https://www.amazon.jobs" },
+    { "name": "G42 group", "ats": "phenom", "host": "careers.g42.ai", "note": "Covers the brands on careers.g42.ai (CPX, Inception, AIQ and others); company shows as 'G42 group - <brand>'" },
+
+    { "name": "PwC (experienced)", "ats": "workday", "host": "pwc.wd3.myworkdayjobs.com", "tenant": "pwc", "site": "Global_Experienced_Careers" },
+    { "name": "PwC (campus)", "ats": "workday", "host": "pwc.wd3.myworkdayjobs.com", "tenant": "pwc", "site": "Global_Campus_Careers" },
+    { "name": "EY", "ats": "successfactors", "host": "careers.ey.com" },
+    { "name": "Capgemini", "ats": "successfactors", "host": "careers.capgemini.com" },
+
+    { "name": "Ingram Micro", "ats": "workday", "host": "ingrammicro.wd5.myworkdayjobs.com", "tenant": "ingrammicro", "site": "IngramMicro" },
+
+    { "name": "Palo Alto Networks", "ats": "manual", "careers_url": "https://jobs.paloaltonetworks.com/", "note": "Radancy site; results load in-browser only" },
+    { "name": "Check Point", "ats": "manual", "careers_url": "https://careers.checkpoint.com/index.php?m=cpcareers&a=search", "note": "Blocks automated requests (HTTP 403)" },
+    { "name": "Help AG", "ats": "manual", "careers_url": "https://helpag.recruitee.com/", "note": "Recruitee board renders in-browser; many roles are UAE Nationals only" },
+    { "name": "Gulf Business Machines (GBM)", "ats": "manual", "careers_url": "https://careers.gbmme.com/", "note": "Search results render in-browser" },
+    { "name": "Redington Gulf", "ats": "manual", "careers_url": "https://redington-gulf.sensehq.com/careers" }
+  ]
+}
