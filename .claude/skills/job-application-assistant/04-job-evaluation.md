@@ -28,6 +28,14 @@ Read the posting's eligibility / work rights / "who can apply" section **verbati
 
 If the candidate's permit also constrains *hours* or *start date* (a student visa with a term-time cap, a permit that begins on graduation), record that as a second gate under this section during `/setup`, with the specific dates. Do not merge it with the eligibility question above — they fail for different reasons and need different answers.
 
+### UAE-specific eligibility notes (Adel)
+
+Adel is a **UAE resident, not a UAE national**. He needs **no visa sponsorship**, which is a real advantage; mention it.
+- **"UAE Nationals only", "Emirati only", "Emiratisation role", "Tawteen", "National Development Programme"**, or **"GCC nationals only"** -> **FAIL** (hard stop, quote the wording).
+- **"UAE Nationals preferred"** -> FLAG, proceed, note that the odds are lower.
+- Government, defence, critical-infrastructure and some banking roles in the UAE may require nationality or clearance even when the ad is silent. Mark unverified and check the employer's careers page.
+- **Timing gate:** full-time availability from **January 2027** only. Graduate programmes with a 2027 intake: PASS. Roles needing a full-time start before January 2027: FLAG (part-time / internship before then is possible).
+
 A role that fails this gate is not scored and not drafted. Everything below applies only to roles that pass it.
 
 ## Language Gate — run before scoring
@@ -60,9 +68,9 @@ How well do the required/preferred skills align with the candidate's capabilitie
 | 40-59 | Partial match, significant upskilling needed |
 | 0-39 | Fundamental mismatch |
 
-**Strong match areas:** [YOUR_PRIMARY_SKILLS]
-**Moderate match areas:** [YOUR_SECONDARY_SKILLS]
-**Weak match areas:** [SKILLS_YOU_LACK]
+**Strong match areas:** Python (Flask, FastAPI, pandas, scikit-learn, pytest), applied AI (RAG, agentic workflows, vector stores, prompt engineering, structured/vision extraction, LLM integration), workflow automation (n8n, REST/OAuth 2.0 API integration), AI/agent security architecture (threat modelling, zero trust, mTLS, OAuth/JWT, RBAC/ABAC), technical proposal writing and services scoping, Linux/Docker/VPS hardening
+**Moderate match areas:** classical ML (gradient boosting, model evaluation), SIEM/SOAR and SOC concepts, networking (GNS3, SONiC, subnetting), infrastructure/virtualisation (Proxmox, VMware, ZFS), SQL and data pipelines, financial analysis and accounting automation (QuickBooks, reconciliation), JavaScript/Node.js, Java, C/C++
+**Weak match areas:** offensive security / penetration testing (no hands-on experience yet), cloud platforms (AWS/Azure/GCP as a primary platform: none), Kubernetes and container orchestration at scale, deep learning training (PyTorch/TensorFlow), frontend frameworks (React etc.), hands-on enterprise security tooling (Splunk, Sentinel, CrowdStrike, Palo Alto), any held certification (CISSP, Security+, CEH, OSCP, CCNA, cloud certs: none), audit/GRC delivery, professional-level financial modelling
 
 ### 2. Experience Match (0-100)
 Does work history align with what they're looking for? Match on the function and nature of the work performed, not the literal job title - a "Data Consultant" and a "Data Scientist" role can be functionally identical.
@@ -74,9 +82,9 @@ Does work history align with what they're looking for? Match on the function and
 | 40-59 | Adjacent experience, would need to make the case |
 | 0-39 | Unrelated experience |
 
-**Strong:** [YOUR_DIRECT_EXPERIENCE_DOMAINS]
-**Moderate:** [YOUR_ADJACENT_EXPERIENCE]
-**Entry-level:** [ROLES_WITH_LIMITED_EXPERIENCE]
+**Strong:** AI automation engineering (paid freelance, n8n + LLM + APIs), building AI proofs of concept and internal tools for customer-facing / presales teams (Dell), enterprise AI infrastructure proposals and customer pitches (Dell)
+**Moderate:** security architecture design (one substantial design, no production security ownership), Python data/automation for operations and finance (Gulf E-Gate), infrastructure deployment and home-lab administration, deal-lifecycle exposure across sales/presales/services
+**Entry-level:** anything with a full-time years-of-experience bar. He is a **new graduate (Dec 2026)** with a 10-week corporate internship plus freelance work. A 2+ year requirement is a stretch; 3+ years is usually a skip unless everything else is exceptional. Also entry-level: SOC analyst, penetration tester, financial/business analyst, data engineer.
 
 ### 3. Behavioral/Culture Fit (0-100)
 Does the role and company culture match the behavioral profile?
@@ -93,7 +101,9 @@ Does the role and company culture match the behavioral profile?
 ### 4. Location & Logistics (Pass/Fail + Notes)
 - Within commute range: PASS
 - Remote with occasional office: PASS
-- Requires relocation: FAIL (deal-breaker)
+- Requires relocation **within the UAE** (Abu Dhabi, Sharjah, Ajman, RAK, Al Ain etc.): PASS (he is willing)
+- Requires relocation **outside the UAE**: FAIL (deal-breaker)
+- Remote from Dubai for a non-UAE employer: FLAG (check contract and payroll setup)
 - Frequent international travel: FLAG (discuss with user)
 
 ### 5. Career Alignment & Motivation (0-100)
@@ -107,19 +117,19 @@ Does this role advance career goals and contain tasks that energize?
 | 0-39 | Dead end or backwards step |
 
 **Career goals:**
-- [YOUR_CAREER_GOAL_1]
-- [YOUR_CAREER_GOAL_2]
-- [YOUR_CAREER_GOAL_3]
+- **Near term (2027 start):** a deeply technical first role in AI and/or security: AI engineer, automation engineer, security engineer/consultant, or a technical graduate programme. Offensive security is a named interest.
+- **Next step:** services presales / solution consulting specialised in security (and AI). Services presales or solutions roles are acceptable as a *first* role too if they stay technical (his two resumes target exactly these two lanes: AI & Security, Services Presales).
+- **Later:** a broader commercial or advisory role. Sequence matters: deep technical first, because technical to commercial is easy and the reverse is very hard. Also surface **software engineering, data, platform, technical consulting and financial/business analyst** roles (Finance minor + accounting automation qualify him). Do not hide them.
 
 **Motivation filter:** Evaluate not just whether you *can* do the tasks, but whether the tasks will *energize* you. Consider:
-- Tasks that energize: [YOUR_ENERGIZING_TASKS]
-- Tasks that drain: [YOUR_DRAINING_TASKS]
+- Tasks that energize: building complete working systems end to end, applied AI and agent tooling, security design, solving a specific problem for a named stakeholder, customer-facing technical problem solving, proposals that turn a business problem into an architecture, infrastructure debugging
+- Tasks that drain: waiting for assignments, narrow repetitive ticket work, pure data entry, slide-making with no technical substance, quota-only sales, roles where the tooling is the job rather than the problem
 - Non-task factors: leadership style, department culture, company values, degree of autonomy
 
 **Life situation alignment:** Consider personal constraints:
-- **Security**: [YOUR_FINANCIAL_SITUATION_CONTEXT]
-- **Flexibility**: [YOUR_SCHEDULE_CONSTRAINTS]
-- **Professional development**: [YOUR_GROWTH_PRIORITIES]
+- **Security**: student with ongoing paid freelance income; first full-time role from January 2027. Salary is handled in conversation, never written on forms (see `03-writing-style.md`). Reference points: Nexus Consultancy published AED 15,000-18,000/month for a Dubai cybersecurity presales role requiring 2 years. Duavel's AED 4,000/month for an AI/ML role is an outlier; do not anchor on it.
+- **Flexibility**: full-time only from **January 2027** (graduating Dec 2026). Before then, part-time, internship or project work is possible around the final semester. A role needing a full-time start before Jan 2027: FLAG.
+- **Professional development**: security certifications (ISC2 CC, then offensive security), breadth across the business, deep on principles and shallow on specific tools, no specialising too early. Graduate programmes with rotations and certification support score higher.
 
 ### 6. Salary Benchmark (Optional)
 
@@ -238,6 +248,15 @@ consumer benefits.
 - Career Alignment: 30%
 
 (Location is pass/fail, not weighted)
+
+## Evaluation Rules for Adel
+- **Be blunt.** If a role wants five years or a certification he lacks, say so and name what's missing. No cheerleading.
+- **Name the specific project** that maps to the job: "AI operations suite" for ML / predictive maintenance / analytics; "agent-to-agent security architecture" for AI security; "58-page AI Factory proposal + pitch" for presales / solutions; "The Bookkeeper pipeline" for AI or automation engineering and fintech; "Playbook Builder" for internal tooling / customer success; "Competitive Intelligence Agent" for RAG / agentic AI / sales enablement; "hardened VPS deployment" and "home lab" for infrastructure / DevOps / platform.
+- **Always state the gap.** Every job has one.
+- **Referral check:** if the company is Dell Technologies, NVIDIA, Red Hat, VMware/Broadcom or IBM, or a Dell partner / distributor / customer, flag the warm-network route (`01-candidate-profile.md` Network, `documents/context/outreach-log.md`) and offer to draft the ask.
+- **Brief first, he picks, then prepare.** Do not draft CVs or letters for roles he has not chosen.
+- **GPA gate:** Adel's GPA is 2.79/4.0. A posting stating a minimum GPA (3.0+) or degree class (2:1 or higher) gets FLAG with the quoted requirement. Many graduate programmes screen on this automatically.
+- **Experience bar heuristic:** "0-2 years" / graduate / junior / associate / trainee = fit. "2 years" = stretch, still worth surfacing if strongly aligned. "3+ years" = usually skip, say why. "5+ years" or senior/lead/manager = skip.
 
 ## Thresholds
 - **Strong Fit** (75+): Definitely apply, tailor everything

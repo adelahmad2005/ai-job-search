@@ -4,6 +4,33 @@ framework_version: 1.4.4
 
 # CV Templates and Tailoring Guide
 
+<!-- BEGIN ACTIVE-TEMPLATE (managed by /add-template - do not edit by hand) -->
+> **Active template override: `adel-onepage`**
+>
+> A custom template is active. Where this block conflicts with the stock guidance below, this block wins. Structural advice below (tailoring, page-budget, cutting rules) still applies.
+>
+> - **Template skeleton:** `templates/cv/adel-onepage/template.tex` — use this as the structural reference instead of the stock template. Start tailored resumes from `cv/main_example.tex` (AI & Security lane) or `cv/main_base_presales.tex` (Services Presales lane)
+> - **Manifest:** `templates/cv/adel-onepage/TEMPLATE.md` — read this for style rules and known pitfalls before drafting
+> - **Source extension:** `.tex`
+> - **Compile command:** `rm -f <file>.pdf && lualatex -interaction=nonstopmode <file>.tex && python ../tools/clean_pdf.py <file>.pdf` (run from `cv/`; `adelresume.cls` and `fonts/lato/` live there). The clean step strips hyperref's /OpenAction and /Names, which SAP SuccessFactors rejects as "active content"
+> - **Fonts:** Lato (bundled in `cv/fonts/lato/`)
+> - **Page limit:** exactly 1 page
+> - **Output file:** `cv/main_<company>_<role>.tex`
+<!-- END ACTIVE-TEMPLATE -->
+
+## Resume Rules for Adel (override everything below)
+
+1. **ONE PAGE. HARD LIMIT.** Every resume is exactly 1 page. Never 2. Adel's instruction: longer resumes get filtered out. This overrides every "2 pages" reference in this file and in `/apply`.
+2. **Format and language follow his own resumes** in `documents/cv/` (AI_Security and Services_Presales PDFs), rebuilt as `cv/main_example.tex` and `cv/main_base_presales.tex`. Tailored resumes should read like those: same sections, same sentence shape, same density.
+3. **Plain, professional, straight to the point. No jargon, no fluff.** Each bullet is: past-tense verb + what was built or done + tools + a real number. Never use:
+   - "self-initiated", "self-starter", "self-directed", "proactively", "took the initiative"
+   - "passionate", "driven", "dynamic", "results-oriented", "detail-oriented", "motivated", "go-getter"
+   - "spearheaded", "leveraged", "synergy", "cutting-edge", "state-of-the-art", "innovative", "world-class", "robust", "seamless", "impactful", "journey", "thrive", "unlock", "empower", "transformative"
+   - "builds complete systems and designs the security around them" style taglines; any sentence that praises him instead of stating a fact
+4. **Summary = 3-4 factual lines** in the originals' shape: degree, minor and graduation date; internship in one sentence with scope; freelance in one clause; "Targeting <role type>." Nothing else.
+5. Facts only from `01-candidate-profile.md`. Cut bullets to fit one page; never shrink font or margins below the class defaults.
+
+
 <!-- SETUP: Profile statements and section ordering are personalized by running /setup -->
 
 ## Template: LaTeX moderncv (Banking Style)
@@ -20,7 +47,7 @@ All CVs use the moderncv LaTeX package with the "banking" style and "blue" color
 cd cv && lualatex -interaction=nonstopmode main_<company>_<role>.tex
 ```
 
-Expected output: `Output written on main_<company>_<role>.pdf (2 pages, ...)`. Any page count other than 2 is a failure that must be fixed before presenting to the user.
+Expected output: `Output written on main_<company>_<role>.pdf (1 page, ...)`. Any page count other than 1 is a failure that must be fixed before presenting to the user.
 
 ## Document Structure
 
@@ -59,7 +86,7 @@ Expected output: `Output written on main_<company>_<role>.pdf (2 pages, ...)`. A
     linkcolor=blue,
     filecolor=magenta,
     urlcolor=blue,
-    pdftitle={[YOUR_NAME] - CV},
+    pdftitle={Adel Abdelmoaty - CV},
     % Keep pdfpagemode=UseNone: this block runs after moderncv's own
     % \AtEndPreamble (moderncv.cls sets pdfpagemode there), so a FullScreen
     % value here would win and open every CV in fullscreen presentation mode.
@@ -69,13 +96,13 @@ Expected output: `Output written on main_<company>_<role>.pdf (2 pages, ...)`. A
 \usepackage{import}
 
 % Personal data
-\name{[FIRST_NAME]}{[LAST_NAME]}
+\name{Adel}{Abdelmoaty}
 % If you have no address to list, DELETE this whole line. \address{}{}{} fails
 % with "There's no line here to end" on every moderncv version.
-\address{[YOUR_ADDRESS]}{}{}
-\phone[mobile]{[YOUR_PHONE]}
-\email{[YOUR_EMAIL]}
-\extrainfo{\href{[YOUR_LINKEDIN_URL]}{LinkedIn}, \href{[YOUR_GITHUB_URL]}{GitHub}}
+\address{Dubai, UAE}{}{}
+\phone[mobile]{+971 56 211 4556}
+\email{adelahmad2005@gmail.com}
+\extrainfo{\href{https://linkedin.com/in/adel-abdelmoaty-25aa5424b}{linkedin.com/in/adel-abdelmoaty-25aa5424b}, \href{https://github.com/adelahmad2005}{github.com/adelahmad2005}}
 
 \begin{document}
 \makecvtitle
@@ -137,11 +164,19 @@ When the role sits outside your home domain, **lead with the domain-transfer arg
 **Create 2-3 profile statement templates for your main role types:**
 
 <!-- SETUP: These are populated based on your background -->
-**For [YOUR_PRIMARY_ROLE_TYPE] roles:**
-> [YOUR_PROFILE_STATEMENT_TEMPLATE_1]
+**For AI & security roles** (from `Adel_Abdelmoaty_Resume_AI_Security.pdf`):
+> Computer Science undergraduate, Minor in Finance, graduating December 2026. Completed a 10-week Dell Technologies Infrastructure Solutions Group internship delivering 12 projects across applied AI, security architecture and infrastructure, alongside a paid freelance AI automation engagement. Targeting AI and security consulting.
 
-**For [YOUR_SECONDARY_ROLE_TYPE] roles:**
-> [YOUR_PROFILE_STATEMENT_TEMPLATE_2]
+**For services presales / solution consulting roles** (from `Adel_Abdelmoaty_Resume_Services_Presales.pdf`):
+> Computer Science undergraduate, Minor in Finance, graduating December 2026. Completed a 10-week Dell Technologies Infrastructure Solutions Group internship delivering 12 projects, including a 58-page customer-ready AI infrastructure proposal with matching sales pitch and presentations to four department heads. Separately scoped, priced and delivered a paid AI automation engagement for an external client. Targeting services presales and solution consulting.
+
+**For software / data / automation engineering roles:**
+> Computer Science undergraduate, Minor in Finance, graduating December 2026. Completed a 10-week Dell Technologies internship delivering 12 projects, including Python tools with 216 and 74 automated tests and a production n8n and FastAPI deployment. Freelance automation and data engineering since 2023. Targeting software and automation engineering roles.
+
+**For financial / business analyst roles** (flag the experience gap honestly):
+> Computer Science undergraduate, Minor in Finance, graduating December 2026. Built an AI pipeline that extracts and posts accounting documents to QuickBooks Online for an accounting firm, and Python pipelines for inventory, order reconciliation and financial reporting at Gulf E-Gate. Completed a 10-week Dell Technologies internship. Targeting financial and business analyst roles.
+
+Swap the last sentence to name the posting's role type. Add "UAE resident, no visa sponsorship required." only if space allows or the posting asks about work authorisation.
 
 Statements labeled *[Used for: <company>_<role>]* were extracted from archived application drafts by `/setup` Path A. They are **phrasing references, never fact sources**: when drafting from one, every factual claim still comes from `01-candidate-profile.md` - a past tailored draft does not vouch for its own accuracy.
 
@@ -244,7 +279,7 @@ Related trap: a bullet whose text begins with a literal `[` must be braced - `\i
 After writing the CV and before presenting to the user, always compile and visually inspect the PDF. Iterate until the layout is clean. Workflow:
 
 1. Run `lualatex -interaction=nonstopmode main_<company>_<role>.tex`
-2. Check the output page count: must be exactly 2
+2. Check the output page count: must be exactly 1
 3. Read the PDF via the Read tool and visually inspect both pages
 4. Check for **orphaned entries**: a `\cventry` title line must never sit alone at the bottom of page 1 with its bullets on page 2
 
@@ -312,21 +347,20 @@ Two independent causes, both easy to avoid:
 
 **Add this to the step 5d checks**: after extracting the text layer, confirm every experience entry shows a start *and* an end separated by an ASCII hyphen. Because the failure is silent and invisible in the PDF, the candidate otherwise discovers it only while filling in the application form.
 
-## Page Budget - Hard 2-Page Limit
+## Page Budget - Hard 1-Page Limit
 
-The CV **must** fit on exactly 2 pages when compiled. Use these content limits as a guide:
+The CV **must** fit on exactly 1 page when compiled. Use these content limits as a guide (Adel's template):
 
 | Section | Max budget |
 |---------|-----------|
-| Profile statement | 3-4 lines |
-| Skills | 5 items, each 1-2 lines |
-| Most recent role | 4-5 bullets |
-| Previous role | 2-3 bullets |
-| Older roles | 2 bullets (1 line each) |
-| Education | 2-3 entries |
-| Publications | 2-3 entries |
-| Awards | 3 entries, single line each |
-| References | "Available upon request." (single line) |
+| Summary | 3-4 lines |
+| Dell Technologies | 6-8 bullets (2-3 lines each) |
+| The Bookkeeper UAE | 3 bullets |
+| Gulf E-Gate | 2 bullets |
+| Education | 1 entry, 1 bullet |
+| Projects | 1 entry, 1 bullet |
+| Skills & Languages | 3-5 lines |
+| References | omit (not on his resumes) |
 
 **If in doubt, cut rather than squeeze.** Reducing `\vspace` or geometry scale to force-fit content makes the CV look cramped.
 
@@ -355,7 +389,7 @@ Cut the lowest-total-score line first, regardless of which section it sits in.
 
 - Do not mechanically cut from the bottom of a static section list without checking relevance. "Cut the oldest role first" is wrong if that role is literally about the skill the posting asks for.
 - Do not cut the one concrete example the cover letter leans on. Relevance is measured against the cover letter you wrote, not just the job posting — interviewers will have read both.
-- Do not cut to fit if the fit is borderline (2.02 pages). Prefer `\enlargethispage{2-3\baselineskip}` on a late section for near-misses; reserve content cuts for genuine overflow (content on page 3 that is more than a single trailing section).
+- For a near-miss (1-3 lines on page 2), shorten the longest low-relevance bullet first. Never use `\enlargethispage`, smaller fonts or smaller margins to force a fit.
 
 ## Recommended Section Order
 

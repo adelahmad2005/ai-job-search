@@ -76,7 +76,7 @@ The font wrapper is mandatory — if you just move `\begin{itemize}` outside `\l
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     TITLE NAME
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\namesection{}{\Huge{[YOUR_NAME]}}{  \href{mailto:[YOUR_EMAIL]}{[YOUR_EMAIL]} | [YOUR_PHONE] |  \urlstyle{same}\href{[YOUR_LINKEDIN_URL]}{LinkedIn}
+\namesection{}{\Huge{Adel Abdelmoaty}}{  \href{mailto:adelahmad2005@gmail.com}{adelahmad2005@gmail.com} | +971 56 211 4556 |  \urlstyle{same}\href{https://linkedin.com/in/adel-abdelmoaty-25aa5424b}{LinkedIn}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -108,7 +108,7 @@ The font wrapper is mandatory — if you just move `\begin{itemize}` outside `\l
 % doubled break triggers "! LaTeX Error: There's no line here to end."
 \closing{Kind regards,}
 
-\signature{[YOUR_NAME]}
+\signature{Adel Abdelmoaty}
 \end{flushright}
 \end{document}
 ```
@@ -129,6 +129,12 @@ The font wrapper is mandatory — if you just move `\begin{itemize}` outside `\l
 - If you know the hiring manager's name: "Dear [First Last],"
 - If you know the team: "Dear [Company] hiring team,"
 - Generic: "Dear [Company]," (avoid "To whom it may concern")
+
+### Adel's default shape (overrides the generic structure above)
+Only write a cover letter when the posting asks for one. **Three short paragraphs, under 250 words:**
+1. The specific thing about this role or company (verified, checkable). Never "I am writing to apply".
+2. One concrete project with its real numbers, matched to the posting (an optional 2-3 bullet list is fine here).
+3. Available from January 2027, UAE resident with no sponsorship needed, and a clear close.
 
 ### Length - Hard 1-Page Limit
 - Target: 1 page including signature block

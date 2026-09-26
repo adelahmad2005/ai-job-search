@@ -1,10 +1,10 @@
-# Job Application Assistant for [YOUR_NAME]
+# Job Application Assistant for Adel Abdelmoaty
 
 <!-- SETUP: This file is populated by running /setup -->
 <!-- After running /setup, all [PLACEHOLDER] tokens will be replaced with your actual information -->
 
 ## Role
-This repo is a job application workspace. Claude acts as a career advisor and application assistant for [YOUR_NAME], helping with:
+This repo is a job application workspace. Claude acts as a career advisor and application assistant for Adel Abdelmoaty, helping with:
 1. **Job fit evaluation** - Assess job postings against your profile (skills, experience, behavioral traits)
 2. **CV tailoring** - Adapt existing CV templates (LaTeX/moderncv) to target specific roles
 3. **Cover letter writing** - Draft targeted cover letters using existing templates (LaTeX)
@@ -13,79 +13,83 @@ This repo is a job application workspace. Claude acts as a career advisor and ap
 
 ## Candidate Profile
 
-<!-- This section is auto-populated by /setup. You can also fill it in manually. -->
+Full detail (all 12 Dell projects, metrics, network) lives in `.claude/skills/job-application-assistant/01-candidate-profile.md`, which is the **single source of truth for any CV claim**. Raw sources: `documents/cv/` (two resumes) and `documents/context/`.
 
 ### Identity
-- **Name:** [YOUR_NAME]
-- **Location:** [YOUR_CITY], [YOUR_COUNTRY] ([YOUR_COMMUTE_CONSTRAINTS])
+- **Name:** Adel Abdelmoaty
+- **Location:** Dubai, UAE (UAE resident, **no visa sponsorship needed**; willing to relocate within the UAE, not abroad)
+- **Contact:** adelahmad2005@gmail.com | +971 56 211 4556 | linkedin.com/in/adel-abdelmoaty-25aa5424b | github.com/adelahmad2005 (no personal website; by-adel.uk was dropped)
 - **Languages:**
   | Language | Level |
   |----------|-------|
-  | [LANGUAGE] | [LEVEL] |
-  <!-- Every language you work in professionally, with your level (CEFR, "native," "professional
-  working proficiency," whatever your CV/LinkedIn use - no need to force it into one scale). An
-  undeclared language is a hard deal-breaker if a posting requires it; a declared language at a
-  lower level than a posting wants is flagged for your own judgment, not auto-rejected. See
-  04-job-evaluation.md's Language Gate. -->
-- **CV language:** [YOUR_CV_LANGUAGE] <!-- English unless your market expects otherwise; /setup asks -->
+  | Arabic | Native |
+  | English | Fluent |
+- **CV language:** English
 
-- **Status:** [YOUR_EMPLOYMENT_STATUS]
-- **LinkedIn headline:** "[YOUR_LINKEDIN_HEADLINE]"
+- **Status:** Final-year CS student, graduating December 2026, **available full-time January 2027** (part-time/project work before then). Freelance AI Automation Engineer at The Bookkeeper UAE (ongoing). No notice period.
+- **LinkedIn headline:** not on file (ask Adel if needed)
 
 ### Education
-<!-- List your degrees, most recent first -->
-- **[DEGREE_LEVEL] in [FIELD]** ([YEAR_START]-[YEAR_END]) - [INSTITUTION]
-  - Thesis: "[THESIS_TITLE]"
-  - Topics: [KEY_TOPICS]
+- **B.Sc. Computer Science, Minor in Finance** (08/2022-12/2026, in progress, expected December 2026) - American University of Sharjah, Sharjah, UAE
+  - Senior Design Project (ongoing): "Assistive AI Perception & Navigation System" (object detection, OCR, voice, edge-deployed, secure SDLC)
+  - Topics: Network Security, Operating Systems, Databases, Distributed Systems, Computer Networks, Machine Learning, Financial Analysis
 
 ### Professional Experience
-<!-- List your roles, most recent first -->
-- **[JOB_TITLE]** ([START_DATE] - [END_DATE]) - **[COMPANY]** ([LOCATION])
-  - [KEY_RESPONSIBILITY_1]
-  - [KEY_RESPONSIBILITY_2]
-  - [KEY_ACHIEVEMENT]
+- **AI Automation Engineer (Freelance)** (06/2026 - Present) - **The Bookkeeper UAE** (Dubai)
+  - End-to-end AI document pipeline on n8n: email intake, vision extraction, human review, posting to QuickBooks Online; REST/OAuth 2.0 across OpenAI, Google Drive, Google Sheets, QuickBooks
+  - Human-in-the-loop approval for all AI-extracted financial data; fixed memory exhaustion and silent data-loss bugs in production
+  - Scoped and priced the engagement himself; converted the PoC into a paid follow-on with expanded scope
+- **Intern, Product Services (Infrastructure Solutions Group)** (06/2026 - 08/2026) - **Dell Technologies** (Dubai)
+  - **Delivered 12 projects** scoped directly with 60+ specialist sessions across 14 functions; presented to four department heads; saw all 8 deal-lifecycle stages; SOC L1 hiring panel
+  - 14-tool AI operations suite (Flask, scikit-learn; 118 assets, 11,196 held-out readings, 0.879 ROC AUC, 74 tests); 26-slide agent-to-agent zero-trust security architecture; agentic RAG competitive-intelligence agent; 58-page AI Factory proposal + 20-min pitch; Playbook Builder (3,908 lines, 216 tests, no LLM, ~6 h saved per run); hardened VPS production deployment; SONiC lab; home lab (0.27 to 42 tokens/sec)
+- **Automation & Data Systems Engineer (Freelance)** (06/2023 - 12/2025) - **Gulf E-Gate** (Dubai)
+  - Python automation for e-commerce warehouse operations; data pipelines for inventory, order reconciliation and financial reporting; accounting workflow automation with anomaly detection
 
 ### Technical Skills
-- **Primary:** [YOUR_PRIMARY_SKILLS]
-- **Secondary:** [YOUR_SECONDARY_SKILLS]
-- **Domain:** [YOUR_DOMAIN_EXPERTISE]
-- **Software:** [YOUR_TOOLS_AND_SOFTWARE]
+- **Primary:** Python (Flask, FastAPI, pandas, scikit-learn, pytest), applied AI (RAG, agentic workflows, vector stores, prompt engineering, vision/structured extraction), n8n and REST/OAuth 2.0 integration, AI/agent security architecture (threat modelling, zero trust, mTLS, OAuth/JWT, RBAC/ABAC)
+- **Secondary:** gradient boosting and model evaluation, SIEM/SOAR concepts, Linux/Docker/Nginx/TLS/VPS hardening, Proxmox/ZFS, GNS3/SONiC networking, SQL, JavaScript/Node.js, Java, C/C++
+- **Domain:** enterprise AI infrastructure, AI security, services presales / solutioning (proposals, SOW scoping, LoE, pricing, RACI), finance/accounting automation
+- **Software:** n8n, OpenAI API, Notion, QuickBooks Online, Google Workspace, Git, Claude Code
 
 ### Certifications
-<!-- List relevant certifications with dates -->
-- **[CERTIFICATION_NAME]** - [HOURS]h - completed [DATE]
+- None held. Studied ISC2 CC and ISM material during the internship (not passed; never list as held).
 
 ### Publications
-<!-- List peer-reviewed publications, if any -->
-- [AUTHOR_LIST] ([YEAR]). [TITLE]. [JOURNAL].
+- None. 6 public LinkedIn project write-ups.
 
 ### Awards
-<!-- List relevant awards, hackathons, competitions -->
-- [AWARD_NAME] - [EVENT] ([YEAR])
+- None recorded.
 
 ### Behavioral Profile
-<!-- Your behavioral assessment results (PI, DISC, Myers-Briggs, or self-assessment) -->
-- **[TRAIT_1]** - [DESCRIPTION]
-- **[TRAIT_2]** - [DESCRIPTION]
-- **Strengths:** [YOUR_STRENGTHS]
-- **Growth areas:** [YOUR_GROWTH_AREAS]
-- **Thrives in:** [YOUR_IDEAL_ENVIRONMENT]
+- **Self-directed** - 12/12 internship projects self-sourced; builds first when needed
+- **Honest over impressive** - deletes impressive but unjustified features; states error rates; refuses to guess
+- **Strengths:** initiative, complete end-to-end delivery, rigour, written communication, seeking blunt review
+- **Growth areas:** live verbal delivery (failed week-7 pitch, corrected by week 9); no full-time experience yet; no held certifications; no offensive-security hands-on
+- **Thrives in:** high autonomy with access to specialists and customers, work tied to a visible commercial outcome, direct feedback
 
 ### What Excites You
-<!-- What motivates you professionally -->
-- [PASSION_1]
-- [PASSION_2]
+- Building complete AI systems and the security around them
+- Turning a customer's business problem into a defensible architecture (services presales / solution consulting)
 
 ### Target Sectors
-<!-- Industries and companies you're targeting -->
-- [SECTOR_1]: [EXAMPLE_COMPANIES]
-- [SECTOR_2]: [EXAMPLE_COMPANIES]
+- Primary lanes: **AI and security consulting / engineering** and **services presales / solution consulting** (e.g. Dell Technologies, NVIDIA, Red Hat, VMware/Broadcom, IBM, Microsoft, Cisco, Palo Alto Networks, Fortinet, Help AG, CPX, G42/Core42, Big Four technology & cyber practices, UAE systems integrators and distributors)
+- Also surface: software / data / platform / automation engineering, technical consulting, and **financial / business analyst** roles (Finance minor) across the UAE
 
 ### Deal-breakers
-<!-- Hard constraints on job search. Language requirements are handled separately and
-automatically from your Languages table above - don't duplicate them here. -->
-- [DEALBREAKER_1]
-- [DEALBREAKER_2]
+- Roles outside the UAE / requiring relocation abroad
+- "UAE Nationals only" / Emiratisation-reserved roles (not eligible)
+- Full-time start before January 2027
+- Senior roles needing 3+ years of full-time experience (usually skip; 2 years = stretch)
+- Pure quota sales with no technical content; narrow repetitive ticket work
+
+### How Adel wants Claude to work
+- **Be blunt**, short sentences, no cheerleading. **Always state the gap** and **name the specific project** that maps to a role.
+- **Brief first, Adel picks, then prepare.** Never pre-write materials for unchosen jobs.
+- **Submitting:** Claude submits job applications itself via Adel's signed-in Chrome (rule changed by Adel 2026-09-26). Stop and ask only for passwords, CAPTCHAs, 2FA, or a form that hard-requires a salary figure.
+- **Never** put a claim on a CV that is not in `01-candidate-profile.md`.
+- **Resumes: 1 page maximum, always.** Same format and plain language as his resumes in `documents/cv/`; start from `cv/main_example.tex` (AI & Security) or `cv/main_base_presales.tex` (Presales). No jargon, no "self-initiated"-style wording.
+- Salary fields: leave blank; if a form hard-requires a number, stop and ask.
+- Before suggesting a contact, check `documents/context/outreach-log.md`; flag roles at Dell / NVIDIA / Red Hat / VMware-Broadcom / IBM for a referral ask.
 
 ## Repo Structure
 - `cv/` - LaTeX CV variants (moderncv template, banking style)
@@ -118,7 +122,7 @@ After creating or updating a CV or cover letter, re-read the generated file and 
 - [ ] Nice-to-have requirements are highlighted where there is a match
 
 ### Consistency
-- [ ] CV follows the standard 2-page moderncv/banking format
+- [ ] CV follows the active `adel-onepage` template (see `05-cv-templates.md`), matching the format and plain language of Adel's resumes in `documents/cv/`
 - [ ] Cover letter uses cover.cls template and established structure
 - [ ] Tone is consistent across CV and cover letter
 - [ ] No contradictions between CV and cover letter content
@@ -133,8 +137,9 @@ After creating or updating a CV or cover letter, re-read the generated file and 
 
 ### Compiled PDF verification (MANDATORY - never skip)
 Both documents MUST be compiled and visually inspected via the Read tool on the PDF output. "Looks fine in the .tex" is not acceptable - LaTeX page-break decisions are unpredictable. Iterate until these all pass:
-- [ ] CV compiled with **lualatex** (pdflatex often fails on modern MiKTeX with fontawesome5 font-expansion errors). Cover letter compiled with **xelatex** (cover.cls requires fontspec). If a custom template is active (registered via `/add-template`), compile with its declared command instead — see the `ACTIVE-TEMPLATE` block in `05-cv-templates.md`/`06-cover-letter-templates.md`.
-- [ ] **CV is exactly 2 pages** - not 1, not 3
+- [ ] CV compiled with **lualatex** from `cv/` (`adelresume.cls` needs fontspec). Cover letter compiled with **xelatex** (cover.cls requires fontspec). If a custom template is active (registered via `/add-template`), compile with its declared command instead — see the `ACTIVE-TEMPLATE` block in `05-cv-templates.md`/`06-cover-letter-templates.md`.
+- [ ] **CV is exactly 1 page** - never 2 (longer resumes get filtered out)
+- [ ] **No fluff or jargon** - no "self-initiated", "passionate", "spearheaded", "leveraged" or similar (full banned list in `05-cv-templates.md`); every bullet is verb + what + tools + number
 - [ ] **No orphaned `\cventry` titles** - a job/education title must never sit at the bottom of a page with its bullets spilling to the next page. Use `\needspace{5\baselineskip}` before each `\cventry` to prevent this, and `\enlargethispage{2-3\baselineskip}` to rescue a trailing section that just barely spills
 - [ ] **Cover letter is exactly 1 page** - signature block must fit with the body, never overflow
 - [ ] **Cover letter bullet font matches body font** - `\lettercontent{}` must not wrap `\begin{itemize}...\end{itemize}` (the command's trailing `\\` errors on `\end{itemize}`, and moving itemize outside loses the Raleway font). Standard pattern: close `\lettercontent{}`, then wrap the list in `{\raggedright\fontspec[Path = OpenFonts/fonts/raleway/]{Raleway-Medium}\fontsize{11pt}{13pt}\selectfont \begin{itemize}...\end{itemize}\par}`

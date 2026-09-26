@@ -104,6 +104,18 @@ The cover letter is **not a CV repetition**. It should be forward-looking:
 - Lead with project management, mentoring, course development
 - Frame advanced degrees as evidence of independent project delivery
 
+## Adel's Voice and Preferences (from documents/context, 2026-09-26)
+
+- **Plain and direct.** Short sentences, concrete numbers, no adjectives doing work that facts should do. No jargon or "fairy tale" wording ("self-initiated", "passionate", "spearheaded", "leveraged"...; full list in `05-cv-templates.md`). Resumes are **1 page max** and follow the format and language of his resumes in `documents/cv/`.
+- **Cover letters only when the posting asks for one.** Three short paragraphs, **under 250 words**:
+  1. The specific thing about this role or company. Never "I am writing to apply".
+  2. One concrete project with its real numbers, chosen to match the posting.
+  3. Available from January 2027, no sponsorship needed (UAE resident), and a clear close.
+- **"Why this company":** never reuse. Ground it in something specific and checkable (a product, market position, something they published). Reusable true framing: he chose an infrastructure company for his internship to see the whole stack rather than one layer, and wants an employer where the technical work connects to a commercial outcome he can see.
+- **"Why this role"** (honest, unusual version): "I arrived at Dell closed off to commercial roles and expecting to stay purely technical. Mapping how the business actually works changed that. The direction I settled on is to start deeply technical, then move toward solutions or consulting specialised in security, because moving from technical into commercial is straightforward and the reverse is very hard."
+- **Salary fields:** leave blank everywhere (decided 2026-09-24). Do not write "negotiable". If a form hard-requires a figure, **stop and ask Adel**.
+- **Outreach messages** (referral asks): short enough to read on a phone, name the specific shared context, make a precise ask, give an easy exit, one follow-up maximum. Log every sent item in `documents/context/outreach-log.md`. Draft only; Adel sends.
+
 ## Multi-language Applications
 - Default to the language of the job posting
 - Cover letters in the posting's language should feel natural, not translated

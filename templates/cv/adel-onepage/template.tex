@@ -1,0 +1,61 @@
+%% Template skeleton - adel-onepage (1 page max)
+%% Rebuilt from documents/cv/Adel_Abdelmoaty_Resume_AI_Security.pdf in the adelresume class.
+%% Facts: .claude/skills/job-application-assistant/01-candidate-profile.md
+%% Compile: lualatex -interaction=nonstopmode main_example.tex   (HARD LIMIT: 1 page)
+\documentclass{adelresume}
+\hypersetup{pdftitle={Adel Abdelmoaty - Resume}}
+
+\begin{document}
+
+\resumename{ADEL ABDELMOATY}
+\contactline{adelahmad2005@gmail.com \ | \ +971 56 211 4556 \ | \ Dubai, UAE}
+\contactline{linkedin.com/in/adel-abdelmoaty-25aa5424b \ | \ github.com/adelahmad2005}
+
+\resumesection{Summary}
+Computer Science undergraduate, Minor in Finance, graduating December 2026. Completed a 10-week Dell Technologies Infrastructure Solutions Group internship delivering 12 projects across applied AI, security architecture and infrastructure, alongside a paid freelance AI automation engagement. Targeting AI and security consulting.
+
+\resumesection{Work Experience}
+\entry{Intern, Product Services (Infrastructure Solutions Group)}{Dell Technologies}{06/2026 - 08/2026}{Dubai, UAE}
+\begin{itemize}
+  \item Delivered 12 projects across applied AI, security and infrastructure, scoped directly with specialists through 60+ one-to-one sessions across 14 business functions; reported in writing to my mentor weekly, presented to four department heads and a full team, and served on a SOC L1 hiring panel.
+  \item Built a 14-tool AI operations suite (Python, Flask, scikit-learn) for a manufacturing customer: gradient-boosting predictive maintenance ranking 118 assets, validated on 11,196 post-cutoff readings to prevent temporal leakage; attrition model at 0.879 ROC AUC with recall and precision surfaced in plain language; 74 automated tests; runs offline; MIT licensed.
+  \item Enforced responsible-AI controls in code: one allowlist-gated function on every outbound request, identity stripping before model calls, provenance stamping on generated records, and deterministic scoring so no ranking is decided by a model.
+  \item Authored a 26-slide agent-to-agent security architecture: seven AI-specific threat classes (prompt injection, agent impersonation, data poisoning, privilege escalation) mapped to a seven-layer zero-trust design using mTLS, OAuth 2.0/JWT, RBAC and ABAC gating, instruction isolation, WORM audit logging and SIEM/SOAR.
+  \item Built an agentic RAG competitive-intelligence pipeline (n8n, OpenAI, vector store, Notion) with a four-tier confidence model returning ``insufficient data'' instead of hallucinating; diagnosed silent retrieval-tool bypass from execution logs; presented to sales leadership.
+  \item Delivered a 58-page customer-ready enterprise AI infrastructure proposal reviewed by four Dell specialists, plus the 20-minute customer pitch: model-agnostic serving, 11-stage RAG query and 8-stage ingestion architecture, four-phase roadmap with measurable exit criteria.
+  \item Built a voice-to-Excel automation tool for the Technical Customer Success team: 3,908 lines of Python, 216 automated tests, zero external LLM calls by design; replaced roughly six hours of manual batch entry per run and refuses ambiguous input rather than guessing.
+  \item Deployed n8n and a FastAPI backend to production on a hardened VPS (Nginx, TLS, systemd, UFW default-deny, Cloudflare); built a Dell Enterprise SONiC virtual switching lab (GNS3, VMware) and a Proxmox/ZFS home lab running local LLMs, tuning inference from 0.27 to 42 tokens/sec.
+\end{itemize}
+
+\entry{AI Automation Engineer (Freelance)}{The Bookkeeper UAE}{06/2026 - Present}{Dubai, UAE}
+\begin{itemize}
+  \item Built an end-to-end AI document pipeline (email intake, vision extraction, human review, posting to QuickBooks Online) on n8n, with direct REST and OAuth 2.0 integrations to the OpenAI, Google Drive, Google Sheets and QuickBooks APIs.
+  \item Designed human-in-the-loop approval so no AI-extracted financial data posts without sign-off; prompt-engineered structured JSON extraction from PDFs and photographed receipts across multi-currency and tax-inclusive edge cases.
+  \item Fixed production failures including memory exhaustion on large mailbox scans and a per-item execution bug causing silent data loss; converted the proof of concept into a paid follow-on engagement.
+\end{itemize}
+
+\entry{Automation \& Data Systems Engineer (Freelance)}{Gulf E-Gate}{06/2023 - 12/2025}{Dubai, UAE}
+\begin{itemize}
+  \item Designed and deployed Python automation for e-commerce warehouse operations and built data pipelines for inventory tracking, order reconciliation and financial reporting, with input validation, access controls and audit logging throughout.
+  \item Automated accounting workflows with error handling and anomaly detection; translated operational and compliance requirements into technical solutions.
+\end{itemize}
+
+\resumesection{Education}
+\entry{B.Sc. Computer Science, Minor in Finance}{American University of Sharjah}{08/2022 - 12/2026}{Sharjah, UAE}
+\begin{itemize}
+  \item Expected graduation December 2026. Relevant coursework: Network Security, Operating Systems, Databases, Distributed Systems, Computer Networks, Machine Learning, Financial Analysis.
+\end{itemize}
+
+\resumesection{Projects}
+\entry{Assistive AI Perception \& Navigation System}{Senior Design Project}{Ongoing}{}
+\begin{itemize}
+  \item Real-time embedded system combining object detection, OCR and voice interaction for visually impaired users; edge-deployed models with privacy-aware data handling, applying secure SDLC throughout with threat modelling and input sanitisation at each layer.
+\end{itemize}
+
+\resumesection{Skills \& Languages}
+\skillline{AI \& Machine Learning}{Python, scikit-learn, gradient boosting, RAG, vector stores \& embeddings, prompt engineering, structured extraction from unstructured documents, multimodal/vision models, model evaluation (ROC AUC, precision/recall), local LLM inference, n8n, responsible-AI design}
+\skillline{Security}{Threat modelling, zero-trust architecture, mTLS, OAuth 2.0/JWT, RBAC/ABAC, SIEM/SOAR, MITRE ATT\&CK, OWASP Top 10, incident response, SOC operations, secure SDLC, GRC}
+\skillline{Software \& Infrastructure}{Flask, FastAPI, JavaScript/Node.js, Java, SQL, C/C++, pandas, NumPy, pytest, Git, REST/OAuth 2.0 integration (QuickBooks Online, Google Workspace, OpenAI), Linux, Docker, Proxmox, ZFS, Nginx, TLS, Cloudflare, GNS3, Dell Enterprise SONiC, Red Hat OpenShift AI}
+\skillline{Languages}{Arabic (native), English (fluent)}
+
+\end{document}
