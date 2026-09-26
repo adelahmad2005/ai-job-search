@@ -5,7 +5,7 @@ description: >
   (LinkedIn, local job boards, and any skills added with /add-portal). Deduplicates
   across runs. Triggers on: job scrape, find jobs, search jobs, new jobs, job search,
   scrape jobs, /scrape
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash(bun --version), Bash(bun run .agents/skills/*/cli/src/cli.ts *), Bash(python tools/job_key.py:*), Bash(python3 tools/job_key.py:*), WebFetch, WebSearch, Agent, AskUserQuestion
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash(bun --version), Bash(bun run .agents/skills/*/cli/src/cli.ts *), Bash(python tools/job_key.py:*), Bash(python3 tools/job_key.py:*), WebFetch, WebSearch, Agent, AskUserQuestion, mcp__claude_ai_Indeed__search_jobs, mcp__claude_ai_Indeed__get_job_details
 ---
 
 # Job Scraper
@@ -74,6 +74,17 @@ Run all portal CLI calls in parallel where possible using the Agent tool. Collec
 
 If a CLI tool exits with a non-zero code, log the error message and continue — do not abort the whole search.
 
+**`careers-search` (target companies' own careers sites).** Run it once per scrape with no `--query` and `--jobage 14`: it already returns only UAE roles from the companies in its `companies.json`, and title triage happens in Step 3. Drop results whose title says the role is for UAE Nationals only ("UAE National", "Emirati", "Tomoh", "Watani"). Its JSON also carries `errors` (companies whose feed failed this run) and `manual` (companies whose sites cannot be read automatically); report both in Step 5. For results with `network: true`, flag a referral ask (CLAUDE.md network list).
+
+#### 1b-bis. Connector portals (Indeed)
+
+When the Indeed connector is available (`mcp__claude_ai_Indeed__search_jobs`; load it via ToolSearch if it is deferred), run it as a primary source alongside the CLIs. It is enabled by default; skip it only when the connector is absent and record it as `skipped (unavailable): indeed-connector` for Step 5. Call it from the main loop, not from an Agent subtask (subagents may not see connector tools).
+
+1. One call per query term: `search_jobs(search="<title keywords>", location="Dubai", country_code="<ISO code>")`. Use the plain title terms from `search-queries.md` (e.g. `AI Engineer`, `Presales Engineer`); strip `site:` operators, quotes and boolean syntax. Run the same top-3 categories as 1b.
+2. The connector has no recency or limit flag and returns ~10 results per call. Filter client-side: parse each `Posted on` date and drop results older than 14 days.
+3. Tag each result `portal: "indeed-connector"`, `source: "connector"`.
+4. **Job IDs (`JOBSEARCH_1000NN`) and `to.indeed.com` short links are regenerated on every call.** Use the Job Id only for `get_job_details` within the same session; never store it as a key. Store the short link as `url` (it resolves), but dedupe Indeed results on company+title only (Step 2), never on URL.
+
 #### 1c. WebSearch fallback
 
 Use `WebSearch` for:
@@ -104,6 +115,8 @@ looks identical to a job never seen, and the recorded status is what makes a lat
 ghost report self-triaging. `isActive: true` is only the absence of that banner, not
 proof the posting is open; deadlines and dead URLs remain `/rank`'s job.
 
+**From Indeed connector results:** fetch full detail with `get_job_details(job_id=...)` in the same session as the search (IDs expire across sessions). Extract the same fields.
+
 **From WebSearch results:** Use `WebFetch` on the posting URL and extract the same
 fields manually. If it returns HTTP 403, retry with browser headers via curl per
 `.claude/skills/job-application-assistant/09-web-research.md` before giving up — most
@@ -120,7 +133,7 @@ For every candidate:
 - Skip if the URL matches any existing `seen_jobs.json` entry, regardless of
   that entry's key. This preserves dedup continuity for postings stored under
   the pre-helper key rule while new entries use the canonical key from Step 4.
-- Otherwise, skip if the company+title combo already exists in `seen_jobs.json`
+- Otherwise, skip if the company+title combo already exists in `seen_jobs.json` (for `indeed-connector` results this is the only dedup check, since their URLs change every call)
 - Skip if the company+role already appears in `job_search_tracker.csv`
 
 ### Step 2.5: Mass-Posting Detection (within this run)
@@ -163,7 +176,7 @@ It prints one line: the canonical key for that posting. The key must be a pure f
       "fit": "high/medium/low",
       "status": "new/skipped/ranked/expired",
       "portal": "<source portal skill, e.g. jobindex-search>",
-      "source": "cli/websearch"
+      "source": "cli/connector/websearch"
     }
   }
 }
@@ -171,7 +184,7 @@ It prints one line: the canonical key for that posting. The key must be a pure f
 
 The `portal` field records which CLI skill produced the job (results are already tagged per portal in Step 1b - persist that tag here). Entries written before this field existed lack it; the health check (Step 4.75) attributes those by matching the URL's domain against each portal's base URL, so do not backfill.
 
-The `source` field records which mechanism produced the entry: `cli` for Step 1b portal-CLI output, `websearch` for the Step 1c fallback. This is what keeps a ghost-job report diagnosable after the run's summary is gone: a stored entry whose URL later resolves to nothing (or to a different job) reads very differently depending on whether it came from live CLI output or from a search index that can be weeks stale - and a presented job with no entry here at all points at fabrication, which Rule 1 forbids. Entries written before this field existed lack it; never backfill it - the mechanism was not recorded.
+The `source` field records which mechanism produced the entry: `cli` for Step 1b portal-CLI output, `connector` for Step 1b-bis connector output, `websearch` for the Step 1c fallback. This is what keeps a ghost-job report diagnosable after the run's summary is gone: a stored entry whose URL later resolves to nothing (or to a different job) reads very differently depending on whether it came from live CLI output or from a search index that can be weeks stale - and a presented job with no entry here at all points at fabrication, which Rule 1 forbids. Entries written before this field existed lack it; never backfill it - the mechanism was not recorded.
 
 `/rank` extends this schema additively: ranked entries also carry `rank_score` (0–100 overall score), `rank_verdict` (fit band, e.g. "strong fit"), `rank_date` (ISO date of ranking), the veto fields `location_verdict` and `language_gate` (both PASS/FAIL/FLAG) with `language_note` (the quoted requirement explaining a non-PASS), and `strengths`/`gaps` (1-3 verbatim bullets each, copied from the scoring agent's findings). The `status` field is set to `"ranked"`. Do not drop any of these fields when re-writing entries. Entries ranked before `strengths`/`gaps` existed simply lack them; readers tolerate their absence and never backfill by guessing. Entries ranked before the verdict rename may carry a legacy PASS/FAIL/FLAG string in `location` - read that as the verdict when `location_verdict` is absent; in fresh entries `location` is always a place, never a verdict.
 
@@ -243,6 +256,9 @@ the skill.
 Found X new positions (Y high, Z medium, W low match).
 
 skipped (disabled): <portal-name>, <portal-name>
+skipped (unavailable): indeed-connector
+careers-search failed: <company> (<error>), ...
+manual check: <company> (<careers_url>), ...
 
 fallback (websearch): <portal-name>, <portal-name>
 

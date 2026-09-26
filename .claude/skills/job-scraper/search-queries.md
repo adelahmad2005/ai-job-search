@@ -1,90 +1,137 @@
 # Search Queries for Job Scraper
 
-<!-- SETUP: Customize these queries based on your skills, target roles, and location -->
+<!-- Populated by /setup on 2026-09-26 for Adel Abdelmoaty (Dubai, UAE; graduating Dec 2026, full-time from Jan 2027). -->
 
 ## Installed portal CLIs (primary for `/scrape`)
 
-`/scrape` discovers every portal skill under `.agents/skills/*/SKILL.md` and runs its CLI first. Shipped country-agnostic CLIs include `linkedin-search` and `freehire-search`; Danish demos and any skill you add with `/add-portal` are included the same way. You do **not** need a matching `site:` line below for those CLIs to run.
+`/scrape` discovers every portal skill under `.agents/skills/*/SKILL.md` and runs its CLI first. Enabled for this profile: **`linkedin-search`** (public guest endpoints, no login) and **`freehire-search`**. **`careers-search`** queries the target companies' own careers sites (registry: `.agents/skills/careers-search/companies.json`; add companies there). The **Indeed connector** (`search_jobs`, `country_code="AE"`) also runs as a primary source (see SKILL.md Step 1b-bis). The four Danish demo portals stay **disabled** (wrong market). Pass the location explicitly: `--location "Dubai, United Arab Emirates"` or `"United Arab Emirates"`; for freehire use the UAE country facet.
 
-The `site:` query templates in this file are the **WebSearch fallback** — for portals without a CLI, company career pages, or when a CLI fails.
+**Searching** uses public feeds and public search pages only. **Applying** is done by Claude through Adel's signed-in Chrome (rule changed 2026-09-26).
 
-**Language scope:** write every query category in every language listed in your CLAUDE.md Languages table (typically 1-2, sometimes more). A posting requiring a language you have *not* declared, as a job condition, is excluded before scoring; a posting requiring a *higher level* than you declared in a language you *do* work in is flagged for your own judgment, not excluded — see `04-job-evaluation.md`'s Language Gate, the single source of truth for this rule. Translate each category's keywords rather than machine-translating word-for-word (e.g. "Frontend Developer" -> "Desarrollador Frontend", not a literal word-for-word translation) if you work in more than one language.
+The `site:` query templates below are the **WebSearch fallback**, for portals without a CLI (Bayt, GulfTalent, Naukrigulf), for company career pages, or when a CLI fails.
+
+**Language scope:** Arabic (native) and English (fluent). UAE tech and consulting postings are almost all in English, so write queries in **English**. Arabic-language postings are fine and pass the Language Gate.
 
 ## Search Sites
 
-Primary (your market's job boards - scaffold one with `/add-portal`):
-- **[YOUR_JOB_BOARD]** - your market's largest general job board
-- **linkedin.com/jobs** - LinkedIn job listings (filter: [YOUR_COUNTRY] / [YOUR_CITY]); also covered by `linkedin-search` CLI
-- **[YOUR_INDUSTRY_JOB_BOARD]** - a niche/industry board for your field (optional)
-- **[YOUR_ADDITIONAL_JOB_BOARD]** - another major board for your market (optional)
+Primary (UAE market):
+- **linkedin.com/jobs**: LinkedIn job listings (filter: United Arab Emirates / Dubai); also covered by the `linkedin-search` CLI
+- **bayt.com**: largest Gulf job board
+- **gulftalent.com**: strong for graduate, consulting and mid-level roles in the GCC
+- **naukrigulf.com**: large volume, many systems-integrator and IT roles
+- **ae.indeed.com**: Indeed UAE (covered by the Indeed connector as a primary source; read-only search, no login automation)
 
-Secondary (company career pages via Google):
-- Direct Google searches with `site:` filters for known target companies
+Secondary (company career pages via Google, high-priority targets):
+- Network companies (warm referral route): **Dell Technologies**, **NVIDIA**, **Red Hat**, **VMware/Broadcom**, **IBM**
+- AI and cyber in the UAE: G42 / Core42 / Inception, Help AG (e&), CPX, Presight, Digital14 successors, Microsoft, Cisco, Palo Alto Networks, Fortinet, Kaspersky, Trend Micro, Check Point, CrowdStrike, Oracle, AWS, HPE, Lenovo ISG
+- Consulting: Deloitte, PwC, EY, KPMG (technology, cyber and AI practices), Accenture, Capgemini
+- Distributors / systems integrators (presales-heavy): Ingram Micro, Redington Gulf, Mindware, Spectrum, Emitac, Gulf Business Machines (GBM), Injazat, Alpha Data, Condo Protego, StarLink, Seven Seas
 
 ## Query Categories
 
-Queries are grouped by priority. Write **each category in every language from your Languages table** (see Language scope above). Combine each query with your location terms (e.g. your city, region, or metro area) where the site supports it.
+Organised by **function**, with several title variants per category. Always add graduate / junior / early-career variants, because Adel is a December 2026 graduate: `graduate`, `junior`, `associate`, `entry level`, `trainee`, `2027`.
 
-**Organize by function, not job title.** The same underlying work carries different titles across companies and markets (a "Data Scientist" role at one employer may be posted as "Insights Analyst" or "Data Consultant" at another). Name each priority category after the function it covers, and list several plausible job titles as query variants within that category rather than betting an entire priority tier on one exact title string.
+### Priority 1: AI & Security Engineering / Consulting (deep-technical first role)
 
-### Priority 1: [YOUR_PRIMARY_ROLE_TYPE]
-
-These match your strongest and most desired career direction.
+The career sequence starts here: deep technical work in AI and security.
 
 ```
-site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE_2]" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_KEY_SKILL]" [YOUR_CITY]
-site:linkedin.com/jobs "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_COUNTRY]
+site:linkedin.com/jobs "AI Engineer" (graduate OR junior OR associate) Dubai
+site:linkedin.com/jobs "AI Security" OR "LLM Security" OR "AI Red Team" United Arab Emirates
+site:linkedin.com/jobs "Cybersecurity Consultant" (graduate OR junior OR associate) Dubai
+site:linkedin.com/jobs "Security Engineer" (graduate OR junior) United Arab Emirates
+site:bayt.com "AI Engineer" Dubai
+site:bayt.com "Cyber Security" graduate Dubai
+site:gulftalent.com "AI" OR "Machine Learning" engineer graduate UAE
+site:naukrigulf.com "Automation Engineer" Python Dubai
+"Generative AI Engineer" OR "LLM Engineer" OR "Applied AI Engineer" junior Dubai
+"Offensive Security" OR "Penetration Tester" junior OR graduate UAE
+"AI Automation Engineer" OR "n8n" OR "Workflow Automation" Dubai
 ```
 
-### Priority 2: [YOUR_DOMAIN_EXPERTISE]
+### Priority 2: Services Presales / Solution Consulting (security and AI)
 
-These match your domain expertise.
-
-```
-site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] OR [YOUR_REGION]
-site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_2] [YOUR_COUNTRY]
-site:linkedin.com/jobs [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] [YOUR_COUNTRY]
-```
-
-### Priority 3: [YOUR_ADJACENT_ROLE_TYPE]
-
-Adjacent roles you could pivot into.
+The second lane. Acceptable as a first role if it stays technical.
 
 ```
-site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_1]" [YOUR_KEY_SKILL] [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_2]" [YOUR_KEY_SKILL] [YOUR_CITY]
+site:linkedin.com/jobs "Presales Engineer" (graduate OR junior OR associate) Dubai
+site:linkedin.com/jobs "Solutions Engineer" OR "Solution Consultant" United Arab Emirates
+site:linkedin.com/jobs "Services Presales" OR "Solutions Architect" associate UAE
+site:linkedin.com/jobs "Presales" cybersecurity Dubai
+site:bayt.com "Presales Engineer" Dubai
+site:gulftalent.com "Presales" graduate UAE
+site:naukrigulf.com "Presales Engineer" security Dubai
+"Sales Engineer" OR "Technical Consultant" AI Dubai
+"Customer Engineer" OR "Associate Solutions Architect" UAE
 ```
 
-### Priority 4: Broader Technical / Consulting
+### Priority 3: Graduate Programmes & Technical Consulting (2027 intake)
 
-Wider net for general technical roles.
+Breadth-building entry routes; rotations are a plus.
 
 ```
-site:[YOUR_JOB_BOARD] [YOUR_KEY_SKILL] developer [YOUR_CITY]
-site:linkedin.com/jobs "[YOUR_KEY_SKILL] developer" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "technical consultant" [YOUR_DOMAIN] [YOUR_CITY]
+site:linkedin.com/jobs "graduate programme" technology OR cyber OR AI UAE 2027
+"Graduate" "Technology Consulting" OR "Cyber" Deloitte OR PwC OR EY OR KPMG Dubai 2027
+"Early Careers" OR "University Graduate" Dell OR NVIDIA OR "Red Hat" OR IBM OR Microsoft Dubai
+site:gulftalent.com "graduate trainee" IT Dubai
+"Technology Analyst" OR "Technology Consultant" graduate Dubai
+```
+
+### Priority 4: Software / Data / Platform Engineering
+
+A wider technical net. Adel wants these surfaced, not hidden.
+
+```
+site:linkedin.com/jobs "Python Developer" (junior OR graduate) Dubai
+site:linkedin.com/jobs "Software Engineer" graduate United Arab Emirates
+site:linkedin.com/jobs "Data Engineer" OR "Data Analyst" junior Dubai
+site:bayt.com "Python" developer junior Dubai
+"DevOps Engineer" OR "Platform Engineer" OR "Cloud Engineer" junior Dubai
+"Machine Learning Engineer" OR "Data Scientist" graduate UAE
+```
+
+### Priority 5: Financial / Business Analyst (Finance minor lane)
+
+Finance minor plus accounting automation qualifies him. Flag the experience gap honestly.
+
+```
+site:linkedin.com/jobs "Financial Analyst" OR "Business Analyst" graduate Dubai
+"FP&A Analyst" OR "Finance Automation" junior UAE
+"Business Analyst" fintech OR "digital transformation" junior Dubai
+"Finance Systems Analyst" OR "ERP Analyst" OR "RPA Developer" Dubai
 ```
 
 ## Location Filter
 
-When evaluating results, verify the job location is within reasonable commute distance from your home. Define acceptable areas:
-- [YOUR_CITY] and surrounding areas
-- [ACCEPTABLE_AREA_1]
-- [ACCEPTABLE_AREA_2]
-- [BORDERLINE_AREA] (borderline - ~X min by transit)
-- [TOO_FAR_AREA] (too far)
+Adel lives in Dubai and is willing to relocate **within the UAE**.
+- **Ideal:** Dubai (all areas: DIFC, Business Bay, Internet City, Media City, Silicon Oasis, JLT, Dubai South)
+- **Acceptable:** Sharjah, Ajman (short commute; AUS is in Sharjah)
+- **Acceptable (relocation within the UAE):** Abu Dhabi, Al Ain, Ras Al Khaimah, Umm Al Quwain, Fujairah
+- **Borderline:** remote roles from Dubai for a non-UAE employer (check contract and payroll setup)
+- **Too far:** anything requiring relocation outside the UAE (including elsewhere in the GCC: Riyadh, Doha and so on). Exclude unless it is explicitly remote from the UAE.
+
+## Eligibility Filter
+- Exclude **"UAE Nationals only" / Emirati only / Emiratisation / Tawteen / GCC nationals only** postings. Adel is a resident, not a national.
+- Flag "UAE Nationals preferred".
+- Positive signal: no sponsorship needed. He is a UAE resident.
+
+## Experience Filter
+- Keep: graduate, junior, associate, trainee, entry level, 0-2 years.
+- Keep and flag as a stretch: exactly 2 years (the 2-3 year band only when strongly aligned with Priority 1-2).
+- Drop: senior, lead, manager, principal, 3+ years (unless the posting is otherwise an exceptional match; then flag it).
+- Start date: full-time from January 2027. Internships or part-time roles before then are fine; flag any full-time role needing an earlier start.
 
 ## Language Filter
 
-Your working languages and levels are in CLAUDE.md's Languages table. When filtering scraped results, apply `04-job-evaluation.md`'s Language Gate: a posting requiring a language you haven't declared at all is excluded; a posting requiring a higher level than you declared in a language you do work in is not excluded, flag it clearly instead (see `job-scraper/SKILL.md`'s Step 3 "Quick Fit Assessment" for how the flag surfaces in `/scrape` output). Postings simply *written* in a language you don't work in, that don't require it on the job, are fine.
+Adel's working languages are in CLAUDE.md's Languages table (Arabic native, English fluent). When filtering scraped results, apply `04-job-evaluation.md`'s Language Gate: a posting requiring a language he hasn't declared at all is excluded (e.g. "fluent French required"); a posting requiring a higher level than declared is flagged, not excluded. Postings simply *written* in a language he doesn't work in are fine if the job doesn't require it.
 
 ## Date Filter
 
-Only include jobs posted within the last 14 days, or with an application deadline that has not yet passed. If a posting date cannot be determined, include it but flag as "date unknown".
+Only include jobs posted within the last 14 days, or with an application deadline that has not yet passed. If a posting date cannot be determined, include it but flag as "date unknown". Graduate programme listings for a 2027 intake stay relevant longer; keep them even when older than 14 days if the deadline is still open.
 
 ## Adapting Queries
 
 If the user specifies a focus area, select queries from the matching category and also generate 2-3 custom queries for that focus. For example:
-- "/scrape [focus_area]" -> relevant category queries + custom focus-specific queries
+- "/scrape presales" -> Priority 2 queries + custom queries for specific vendors
+- "/scrape dell" -> Dell careers page + LinkedIn "Dell Technologies" UAE + flag the referral route
+- "/scrape finance" -> Priority 5 queries
