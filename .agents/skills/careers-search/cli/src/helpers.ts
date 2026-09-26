@@ -86,9 +86,9 @@ export function writeError(error: string, code: string): void {
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"
 
 /**
- * Fetch with a 20 s timeout. Retries 5xx up to twice with backoff. A 429 is
- * never retried: it is surfaced so the caller backs off instead of hammering
- * a company's careers site.
+ * Fetch with a 20 s timeout. Retries 5xx up to twice with backoff. A 429 gets
+ * exactly one retry after a 10 s pause (Microsoft's API rate-limits the first
+ * burst of a run), then is surfaced so the caller backs off.
  */
 export async function http(url: string, init: { method?: string; json?: unknown; accept?: string } = {}): Promise<Response> {
   let delay = 800
@@ -104,6 +104,10 @@ export async function http(url: string, init: { method?: string; json?: unknown;
       redirect: "follow",
       signal: AbortSignal.timeout(20000),
     })
+    if (res.status === 429 && attempt === 0) {
+      await new Promise((r) => setTimeout(r, 10000))
+      continue
+    }
     if (res.status >= 500 && attempt < 2) {
       await new Promise((r) => setTimeout(r, delay))
       delay *= 2

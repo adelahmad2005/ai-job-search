@@ -5,7 +5,7 @@ description: >
   (LinkedIn, local job boards, and any skills added with /add-portal). Deduplicates
   across runs. Triggers on: job scrape, find jobs, search jobs, new jobs, job search,
   scrape jobs, /scrape
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash(bun --version), Bash(bun run .agents/skills/*/cli/src/cli.ts *), Bash(python tools/job_key.py:*), Bash(python3 tools/job_key.py:*), WebFetch, WebSearch, Agent, AskUserQuestion, mcp__claude_ai_Indeed__search_jobs, mcp__claude_ai_Indeed__get_job_details
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash(bun --version), Bash(bun run .agents/skills/*/cli/src/cli.ts *), Bash(python tools/job_key.py:*), Bash(python3 tools/job_key.py:*), Bash(python tools/deadlines.py:*), WebFetch, WebSearch, Agent, AskUserQuestion, mcp__claude_ai_Indeed__search_jobs, mcp__claude_ai_Indeed__get_job_details
 ---
 
 # Job Scraper
@@ -74,7 +74,7 @@ Run all portal CLI calls in parallel where possible using the Agent tool. Collec
 
 If a CLI tool exits with a non-zero code, log the error message and continue — do not abort the whole search.
 
-**`careers-search` (target companies' own careers sites).** Run it once per scrape with no `--query` and `--jobage 14`: it already returns only UAE roles from the companies in its `companies.json`, and title triage happens in Step 3. Drop results whose title says the role is for UAE Nationals only ("UAE National", "Emirati", "Tomoh", "Watani"). Its JSON also carries `errors` (companies whose feed failed this run) and `manual` (companies whose sites cannot be read automatically); report both in Step 5. For results with `network: true`, flag a referral ask (CLAUDE.md network list).
+**`careers-search` (target companies' own careers sites).** Run it once per scrape with no `--query` and `--jobage 14`: it already returns only UAE roles from the companies in its `companies.json`, and title triage happens in Step 3. Drop results whose title says the role is for UAE Nationals only ("UAE National", "UAEN", "Emirati", "Tomoh", "Watani", "Emiratization"). Its JSON also carries `errors` (companies whose feed failed this run) and `manual` (companies whose sites cannot be read automatically); report both in Step 5. For results with `network: true`, flag a referral ask (CLAUDE.md network list).
 
 #### 1b-bis. Connector portals (Indeed)
 
@@ -135,6 +135,10 @@ For every candidate:
   the pre-helper key rule while new entries use the canonical key from Step 4.
 - Otherwise, skip if the company+title combo already exists in `seen_jobs.json` (for `indeed-connector` results this is the only dedup check, since their URLs change every call)
 - Skip if the company+role already appears in `job_search_tracker.csv`
+
+### Step 2.25: Graduate-Programme Capture
+
+`job_scraper/grad_programmes.csv` is the graduate-programme deadline tracker (read by `tools/deadlines.py`). For any result from any portal whose title names a graduate / early-career programme ("Graduate Programme", "Graduate Program", "2027 Start", "New Grad", "Graduate Trainee", "Early Careers"; not internships, not "Program Manager" roles) and whose posting is not UAE-Nationals-only, add a row if the company+programme is not already there: `status` `open`, `opens` = the posting date, `closes` = the deadline stated in the posting or `not stated` (never guessed), `eligibility` quoted from the posting, `last_checked` = today, `source` = the portal. Update `status` to `applied` when the tracker shows an application. Never delete rows; set `closed` when a posting is gone.
 
 ### Step 2.5: Mass-Posting Detection (within this run)
 
@@ -257,6 +261,7 @@ Found X new positions (Y high, Z medium, W low match).
 
 skipped (disabled): <portal-name>, <portal-name>
 skipped (unavailable): indeed-connector
+deadlines: <output of `python tools/deadlines.py`, one line per item; omit when it prints no actions>
 careers-search failed: <company> (<error>), ...
 manual check: <company> (<careers_url>), ...
 

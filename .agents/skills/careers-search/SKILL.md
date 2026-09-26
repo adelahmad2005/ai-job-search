@@ -111,6 +111,6 @@ bun run .agents/skills/careers-search/cli/src/cli.ts search --company "nvidia,re
 
 - Volume is small: one to a few requests per company per run. Keep it that way:
   no loops over `detail` for every hit.
-- A 429 is reported, never retried in a loop.
-- Many UAE postings are reserved for UAE Nationals ("UAE National", "Emirati",
-  "Tomoh", "Watani"). These are deal-breakers for Adel; `/scrape` should drop them.
+- A 429 gets one retry after 10 s, then is reported - never retried in a loop.
+- Many UAE postings are reserved for UAE Nationals ("UAE National", "UAEN",
+  "Emirati", "Tomoh", "Watani"). These are deal-breakers for Adel; `/scrape` should drop them.
