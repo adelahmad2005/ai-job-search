@@ -27,7 +27,7 @@ Full detail (all 12 Dell projects, metrics, network) lives in `.claude/skills/jo
 - **CV language:** English
 
 - **Status:** Final-year CS student, graduating December 2026, **available full-time January 2027** (part-time/project work before then). Freelance AI Automation Engineer at The Bookkeeper UAE (ongoing). No notice period.
-- **LinkedIn headline:** not on file (ask Adel if needed)
+- **LinkedIn headline:** "AI & Cybersecurity | CS Senior, Finance Minor, American University of Sharjah | Dell Intern" (from LinkedIn export, 2026-09-26)
 
 ### Education
 - **B.Sc. Computer Science, Minor in Finance** (08/2022-12/2026, in progress, expected December 2026) - American University of Sharjah, Sharjah, UAE
@@ -89,6 +89,7 @@ Full detail (all 12 Dell projects, metrics, network) lives in `.claude/skills/jo
 - **Never** put a claim on a CV that is not in `01-candidate-profile.md`.
 - **Resumes: 1 page maximum, always.** Same format and plain language as his resumes in `documents/cv/`; start from `cv/main_example.tex` (AI & Security) or `cv/main_base_presales.tex` (Presales). No jargon, no "self-initiated"-style wording.
 - Salary fields: leave blank; if a form hard-requires a number, stop and ask.
+- **LinkedIn referral outreach = `/network`:** 15 people per weekday, max 2 per company per day, Dell excluded (Adel does those himself). Messages ~300 chars, 3 sentences. Delivered **always** as the HTML send sheet (`tools/network_sendsheet.py`); Adel sends by hand, never automated. Tracked in `documents/context/network-queue.csv` via `tools/network_rank.py` (`--mark sent`, `--reply`, `--report`); one follow-up after 7 days, close 7 days later.
 - Before suggesting a contact, check `documents/context/outreach-log.md`; flag roles at Dell / NVIDIA / Red Hat / VMware-Broadcom / IBM for a referral ask.
 
 ## Repo Structure

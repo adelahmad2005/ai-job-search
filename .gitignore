@@ -118,3 +118,10 @@ company_research/*.json
 
 # Brainstorm mockups (superpowers visual companion) - never ship
 .superpowers/
+
+# LinkedIn connections export and the shortlist built from it (personal data)
+documents/context/Connections.csv
+documents/context/network-shortlist.*
+documents/context/network-queue.csv
+documents/context/network-by-company.md
+documents/context/network-drafts-*
