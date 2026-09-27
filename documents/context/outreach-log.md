@@ -43,7 +43,8 @@ These are warm and unused. Suggest them when a relevant role appears:
 
 ## Rules
 
-- Draft the message, I send it. Never send anything.
+- Claude may send messages itself (rule changed 2026-09-26). Default for LinkedIn:
+  Claude drafts, I copy-paste and send by hand, to keep the account safe.
 - Short enough to read on a phone.
 - Name the specific shared context: a session, a presentation, a project.
 - Make the ask precise: a referral, an intro to the hiring manager, or a view on
