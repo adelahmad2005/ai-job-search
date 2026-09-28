@@ -5,7 +5,7 @@
     {"name": "Red Hat", "ats": "workday", "network": true, "host": "redhat.wd5.myworkdayjobs.com", "tenant": "redhat", "site": "jobs"},
     {"name": "Broadcom (VMware)", "ats": "workday", "network": true, "host": "broadcom.wd1.myworkdayjobs.com", "tenant": "broadcom", "site": "External_Career"},
     {"name": "IBM", "ats": "ibm", "network": true, "careers_url": "https://www.ibm.com/careers/search"},
-    {"name": "Dell Technologies", "ats": "manual", "network": true, "careers_url": "https://jobs.dell.com/en/location/united-arab-emirates-jobs/375/290557/2", "note": "Dell's Workday API rejects automated requests (HTTP 422); LinkedIn and Indeed also carry Dell UAE roles"},
+    {"name": "Dell Technologies", "ats": "oracle", "host": "enterpriseplatform.dell.com", "site": "careers", "network": true},
     {"name": "Cisco", "ats": "workday", "host": "cisco.wd5.myworkdayjobs.com", "tenant": "cisco", "site": "Cisco_Careers"},
     {"name": "CrowdStrike", "ats": "workday", "host": "crowdstrike.wd5.myworkdayjobs.com", "tenant": "crowdstrike", "site": "crowdstrikecareers"},
     {"name": "Trend Micro", "ats": "workday", "host": "trendmicro.wd3.myworkdayjobs.com", "tenant": "trendmicro", "site": "External"},
@@ -30,7 +30,7 @@
     {"name": "Accenture", "ats": "manual", "careers_url": "https://www.accenture.com/ae-en/careers/jobsearch", "note": "Search renders in-browser"},
     {"name": "Core42", "ats": "manual", "careers_url": "https://careers.g42.ai/core42/global/en/home", "note": "Not in the G42 group feed; its own page lists roles in-browser"},
     {"name": "Presight", "ats": "manual", "careers_url": "https://careers.g42.ai/presight/global/en/home", "note": "Not in the G42 group feed; its own page lists roles in-browser"},
-    {"name": "e& (etisalat)", "ats": "manual", "careers_url": "https://www.eand.com/en/careers/careers.html"},
+    {"name": "e& (etisalat)", "ats": "oracle", "host": "iaayey.fa.ocs.oraclecloud26.com", "site": "CX_1"},
     {"name": "Kaspersky", "ats": "manual", "careers_url": "https://careers.kaspersky.com/"}
   ]
 }

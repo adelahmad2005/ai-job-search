@@ -101,6 +101,7 @@ Dubai, UAE. Ended.
 - Threat modelling, zero-trust architecture, mTLS, OAuth 2.0/JWT, RBAC/ABAC, least privilege, SIEM/SOAR, WORM audit logging, AI/agent security (prompt injection, agent impersonation, data poisoning, privilege escalation), secure SDLC
 - Knowledge-level (coursework / study, not production ownership): MITRE ATT&CK, OWASP Top 10, incident response, SOC operations, GRC
 - **No offensive-security / pentest experience yet.** No held certification.
+- Took a penetration-testing course in summer 2025, taught by Zaid Taha (now Security Delivery Specialist, Accenture) (confirmed by Adel 2026-09-28). Course content, format and any certificate not recorded; ask before putting it on a resume.
 
 ### Infrastructure
 - Linux, Docker, Proxmox VE, ZFS, Nginx, Let's Encrypt/TLS, systemd, UFW, Cloudflare, Tailscale, VPS hardening, GNS3, VMware, Dell Enterprise SONiC, Red Hat OpenShift AI (exposure), Git
