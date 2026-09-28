@@ -2,7 +2,7 @@
 
 Generate a self-contained HTML dashboard from `job_search_tracker.csv` and the application archives under `documents/applications/`. The output is a single `.html` file — no server, no dependencies — that can be opened directly in a browser.
 
-**Generator:** `python tools/html_report.py [output.html] [--open]` implements every step below (applications section + LinkedIn outreach section). Run it, then present Step 4. Only edit the script if the spec below changes. Always pass `--open` so the report opens in Adel's browser.
+**Generator:** `python tools/html_report.py [output.html] [--open]` implements every step below (applications section + LinkedIn outreach section + cold email section). Run it, then present Step 4. Only edit the script if the spec below changes. Always pass `--open` so the report opens in Adel's browser.
 
 ## Step 0: Parse Arguments
 
@@ -26,6 +26,8 @@ Read in parallel:
 2. **`documents/applications/*/outcome.md`** — for each resolved application, read the outcome file to get the exact interview stages reached (the checkboxes) and any notes. Merge this into the matching tracker row by company+role fuzzy match (lowercase, ignore punctuation). If an archive exists for a row but there is no match, attach it as extra context anyway.
 
 3. **`documents/context/network-queue.csv`** (if present) — LinkedIn referral outreach tracked by `/network`. Rendered as its own **LinkedIn outreach** section after the applications table: cards (messaged, replied + rate, awaiting reply, follow-ups due, skipped, left in queue), an outreach funnel (messaged → replied → call/referral → referral), a **Needs action** list (replies to act on, follow-ups due at 7 days, close as no reply 7 days after follow-up), messaged-by-company bars, and a table of everyone messaged (name linked to profile, company, position, sent date + days ago, status pill, outcome, notes). These are not applications: never add them to the application stats.
+
+4. **`documents/context/cold-email-targets.csv`** (if present) — cold email outreach tracked by `/coldemail` (`tools/cold_email.py`). Rendered as a **Cold email outreach** section after LinkedIn: cards (emailed, delivered, replied + rate, awaiting reply, follow-ups due, bounced), a funnel (emailed → delivered → replied → call/interview/referral), a **Needs action** list (replies to act on, follow-ups due, close as no reply, bounces), delivered-by-company bars, and a table of everyone emailed. Not applications: never add them to the application stats.
 
 Status normalisation — map tracker values to six canonical buckets before computing stats:
 - `drafted` → **Drafted** (documents written by `/apply`, not yet submitted)
@@ -137,6 +139,7 @@ Then present:
 > - Active: N · Interview: N · Hired: N · Rejected/Closed: N
 > - Funnel: N% progressed past resume screen
 > - LinkedIn: N messaged · N replied (N%) · N follow-ups due
+> - Cold email: N delivered · N replied (N%) · N bounced · N follow-ups due
 >
 > Re-run `/html-report` any time after adding new entries via `/apply` or `/outcome` to refresh the dashboard.
 

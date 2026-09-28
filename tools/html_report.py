@@ -1,5 +1,6 @@
 """Build the /html-report dashboard: applications from job_search_tracker.csv (+ outcome.md
-files) and the LinkedIn referral outreach from documents/context/network-queue.csv.
+files), the LinkedIn referral outreach from documents/context/network-queue.csv and the cold
+email outreach from documents/context/cold-email-targets.csv.
 
 Usage: python tools/html_report.py [output.html] [--open]
 Self-contained output: inline CSS/JS/SVG, no external requests. Read-only on all inputs.
@@ -201,6 +202,78 @@ def linkedin_section():
 <p class="note">One follow-up after 7 days with no reply; closed as no reply 7 days after that. Source: network-queue.csv.</p></section>"""
 
 
+# ---- Cold email outreach (cold-email-targets.csv, written by tools/cold_email.py) ----
+COLD = ROOT / "documents/context/cold-email-targets.csv"
+CE_COL = {"sent": "#3b82f6", "followed_up": "#f59e0b", "replied": "#22c55e", "no_reply": "#ef4444",
+          "bounced": "#b91c1c", "skipped": "#64748b", "queued": "#94a3b8"}
+CE_LABEL = {"sent": "Awaiting reply", "followed_up": "Followed up", "replied": "Replied", "no_reply": "No reply",
+            "bounced": "Bounced", "skipped": "Skipped", "queued": "Queued"}
+
+def cold_email_section():
+    if not COLD.exists():
+        return ""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import cold_email
+    q = cold_email.load()
+    mailed = [r for r in q if r["sent_on"]]
+    if not mailed:
+        return ""
+    delivered = [r for r in mailed if r["status"] != "bounced"]
+    replied = [r for r in mailed if r["status"] == "replied"]
+    waiting = [r for r in mailed if r["status"] in ("sent", "followed_up")]
+    bounced = [r for r in mailed if r["status"] == "bounced"]
+    due = [r for r in mailed if r["status"] == "sent" and (days_ago(r["sent_on"]) or 0) >= 7]
+    close = [r for r in mailed if r["status"] == "followed_up" and (days_ago(r["followup_on"]) or 0) >= 7]
+    act = [r for r in replied if r["outcome"] in ("interview", "referral", "call", "advice")]
+    rate = f"{round(100 * len(replied) / len(delivered))}%" if delivered else "n/a"
+    cards = [("Emailed", len(mailed), "#0f172a"), ("Delivered", len(delivered), CE_COL["sent"]),
+             ("Replied", f"{len(replied)} <small>({rate})</small>", CE_COL["replied"]),
+             ("Awaiting reply", len(waiting), CE_COL["sent"]), ("Follow-ups due", len(due), CE_COL["followed_up"]),
+             ("Bounced", len(bounced), CE_COL["bounced"])]
+    card_html = "".join(f'<div class="card" style="border-left-color:{c}"><div class="n">{n}</div>'
+                        f'<div class="l">{e(t)}</div></div>' for t, n, c in cards)
+    funnel = [("Emailed", len(mailed)), ("Delivered", len(delivered)), ("Replied", len(replied)),
+              ("Call / interview / referral", sum(r["outcome"] in ("call", "interview", "referral") for r in replied))]
+    comp = Counter(r["company"] for r in delivered).most_common(10)
+    by_type = []
+    for t in ("recruiter", "peer", "lead"):
+        d = [r for r in delivered if r["contact_type"] == t]
+        if d:
+            by_type.append((f"{t} ({len(d)} sent)", round(100 * sum(r["status"] == "replied" for r in d) / len(d))))
+
+    def item(r, extra):
+        return (f'<li><b>{e(r["name"])}</b> <span class="muted">· {e(r["company"])}</span> — {e(extra)}</li>')
+    todo = ([item(r, f'{r["outcome"]}: {r["notes"][-120:]}') for r in act]
+            + [item(r, f'follow-up due, sent {days_ago(r["sent_on"])}d ago') for r in due]
+            + [item(r, f'close as no reply, followed up {days_ago(r["followup_on"])}d ago') for r in close]
+            + [item(r, 'bounced: reach on LinkedIn or find another contact') for r in bounced])
+    todo_html = ('<ul class="todo">' + "".join(todo) + "</ul>") if todo else '<p class="muted">Nothing to act on today.</p>'
+    trs = []
+    for r in sorted(mailed, key=lambda r: (r["sent_on"], r["company"]), reverse=True):
+        src = r["source"].replace("LinkedIn people search ", "").replace("LinkedIn ", "").split(" ")[-1]
+        name = (f'<a href="{e(src)}" target="_blank" rel="noopener">{e(r["name"])}</a>'
+                if src.startswith("http") else e(r["name"]))
+        stt = r["status"]
+        trs.append(f'<tr><td>{name}</td><td>{e(r["company"])}</td><td>{dash(r["title"])}</td><td>{dash(r["contact_type"])}</td>'
+                   f'<td>{e(r["email"])} <span class="muted">({e(r["confidence"])})</span></td>'
+                   f'<td>{e(r["sent_on"])} <span class="muted">({days_ago(r["sent_on"])}d)</span></td>'
+                   f'<td><span class="pill" style="background:{CE_COL.get(stt, "#64748b")}">{e(CE_LABEL.get(stt, stt))}</span></td>'
+                   f'<td>{dash(r["outcome"])}</td></tr>')
+    return f"""
+<h2 class="sec">Cold email outreach <span class="muted">· {len({r["company"] for r in delivered})} companies</span></h2>
+<section class="cards">{card_html}</section>
+<section class="charts">
+<div class="chart-card"><h3>Cold email funnel</h3>{hbar(funnel, "Cold email funnel", colors={"Emailed": "#0f172a", "Delivered": CE_COL["sent"], "Replied": CE_COL["replied"], "Call / interview / referral": "#8b5cf6"})}</div>
+<div class="chart-card"><h3>Needs action</h3>{todo_html}
+<h3 style="margin-top:14px">Reply rate % by contact type</h3>{hbar(by_type, "Reply rate by contact type") if by_type else '<p class="muted">No data yet.</p>'}
+<h3 style="margin-top:14px">Delivered by company</h3>{hbar(comp, "Delivered by company")}</div>
+</section>
+<section class="tablecard"><div class="tools"><h3>People emailed ({len(mailed)})</h3></div>
+<div class="wrap"><table><thead><tr><th>Name</th><th>Company</th><th>Title</th><th>Type</th><th>Email</th><th>Sent</th><th>Status</th><th>Outcome</th></tr></thead>
+<tbody>{"".join(trs)}</tbody></table></div>
+<p class="note">One follow-up after 7 days with no reply; closed as no reply 7 days after that. Source: cold-email-targets.csv (/coldemail).</p></section>"""
+
+
 today = date.today().isoformat()
 cards = [("Sent", len(sent), "#0f172a")] + [(b, by_bucket[b] if b != "Rejected/Closed" else by_bucket[b], COL[b]) for b in ORDER]
 card_html = "".join(f'<div class="card" style="border-left-color:{c}"><div class="n">{n}</div><div class="l">{e(t)}</div></div>' for t, n, c in cards)
@@ -272,6 +345,7 @@ footer {{ color:var(--muted); text-align:center; margin:22px 0 6px; font-size:12
 <p class="note" id="shown"></p>
 </section>
 {linkedin_section()}
+{cold_email_section()}
 <footer>Generated by Claude Code · ai-job-search · {today}</footer>
 </main>
 <script>
