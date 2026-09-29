@@ -38,3 +38,8 @@ ekta.sharma@inceptionai.ai, stephan@openai.com, abhinav.noronha@helpag.com, sala
 | Company / domain | Example address | Source URL |
 |---|---|---|
 | Cisco (cisco.com) | suvjain@cisco.com (Suvidha Jain = first 3 letters + last name, NOT flast: Cisco aliases vary per person, so only published Cisco addresses are safe) | Her own LinkedIn headline |
+| G42 (g42.ai, G42 group staff only, not Core42/CPX) | ulviyya.hasanzade@g42.ai (Director of Corporate Communications) | G42 press release media contact (via Presight/G42 releases, 2025) |
+| G42 (g42.ai) | tabbashum.khan@g42.ai, john.canimo@g42.ai | Delivered 2026-09-28 with no bounce; g42.ai's server rejects unknown recipients (550 5.4.1 on ammar.mohammad@g42.ai), so acceptance proves these mailboxes exist |
+| Presight | media@presight.ai (role address only, no personal example yet) | Presight press releases |
+
+**Status 2026-09-29:** first.last@g42.ai is PROVEN (3 examples) for people employed by G42 itself (headline says G42, not Core42/CPX/Inception). All other domains still need 2 real examples before any send.
