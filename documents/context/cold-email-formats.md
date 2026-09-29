@@ -37,4 +37,4 @@ ekta.sharma@inceptionai.ai, stephan@openai.com, abhinav.noronha@helpag.com, sala
 
 | Company / domain | Example address | Source URL |
 |---|---|---|
-| Cisco (cisco.com) | suvjain@cisco.com (Suvidha Jain, flast-style alias) | Her own LinkedIn headline |
+| Cisco (cisco.com) | suvjain@cisco.com (Suvidha Jain = first 3 letters + last name, NOT flast: Cisco aliases vary per person, so only published Cisco addresses are safe) | Her own LinkedIn headline |
