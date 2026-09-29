@@ -46,11 +46,16 @@ Skip: executive-search / C-suite recruiters, Emiratization-only recruiters, anyo
 
 Keep extraction cheap: one search per company per type, pull name / headline / location / profile URL with a single `javascript_tool` call, no screenshots.
 
-## Step 3: Work email
+## Step 3: Work email (deliverability is the top priority)
 
-1. Look for a **published** address first (their LinkedIn headline/about, company site, a public post). Use it if found (confidence: verified).
-2. Otherwise use the company format from `documents/context/cold-email-formats.md`. If the company is not there, find it (search "<company> email format", read LeadIQ / RocketReach / Clay results), add a row to that file with the share, then build the address. Subsidiaries often have their own domain (Core42 staff are not all on g42.ai; Inception uses inceptionai.ai).
-3. Label confidence: `high` (format ≥90%), `medium-high` (70-90%), `medium` (sources disagree / <70%). Never use personal (gmail/hotmail) addresses. Never send more than one guess per person.
+Adel's Gmail must never be flagged as spam. **Bounce budget: at most 1 bounce per 1-2 weeks.** An email is only sent when the address is highly certain; everyone else is handed to Adel as a LinkedIn contact instead.
+
+1. **Published address wins.** Search for the person's own address: their LinkedIn headline/about (some recruiters publish it, e.g. `suvjain@cisco.com`), company site, conference speaker pages, press releases, GitHub commits, public posts. Found → `conf: verified`, `evidence: <URL where it appears>`.
+2. **Otherwise the format must be proven by real examples, not aggregator percentages.** Aggregator shares (LeadIQ, RocketReach, Clay) are only a lead. Before using a format, find **at least 2 real, published addresses of other employees of the same company and same email domain**, ideally the same country/office and the same subsidiary (search e.g. `"@cpx.net"`, `"@core42.ai" email`, press-release contacts, event pages, PDF reports, GitHub). Record them in `documents/context/cold-email-formats.md` with their source URLs. Only when ≥2 real examples match the pattern and nothing contradicts it → `conf: high`, `evidence: <URLs of the examples>`.
+3. **Subsidiaries and regional entities:** prove the domain for that exact entity (Core42 ≠ G42, Inception ≠ G42, Microsoft UAE staff may differ). A domain that is only "probably" right is not good enough.
+4. **Anything less than verified/high is not emailed.** No `medium`, no "sources disagree", no names with particles/hyphens/double surnames unless an example shows how that company writes them. Put these people in the Step 7 LinkedIn list instead.
+5. **Known failures** (bounced 2026-09-28, 550 5.4.1 recipient rejected): `ammar.mohammad@g42.ai`, `ammar.mohammad@core42.ai`, `nancy.naweto@microsoft.com`, `zulul.huma@cpx.net`. G42, Core42, CPX and Microsoft all reject unknown recipients, so any guess there is high risk: only published addresses or ≥2 matching examples from the same entity.
+6. Never use personal (gmail/hotmail) addresses. Never more than one attempt per person; a bounced person is LinkedIn-only forever.
 
 ## Step 4: Tailored CV per company
 
@@ -72,7 +77,7 @@ Remove any sponsorship / residency phrase. Reuse an existing `main_cold_<company
 - Vary the enthusiasm sentence between companies so no two emails read identically.
 - By `type`: **recruiter** asks to be considered for entry-level roles / a named programme; **peer** asks, peer to peer, whether they'd be open to referring him (or pointing him to the right team) for a named role or entry-level openings, subject `Request for Referral: <Role/Team> at <Company>`; **lead** leads with the single strongest matching project and asks whether the team takes graduates, subject `Request for Consideration: <Team> at <Company>`.
 
-Write the batch as JSON (fields `co,name,first,title,type,url,email,basis,conf,cv,subj,body`, body without the `Hi X,` line) to `<scratchpad>/coldbatch.json` and save a readable copy to `documents/context/cold-emails-YYYY-MM-DD.md`.
+Write the batch as JSON (fields `co,name,first,title,type,url,email,basis,conf,evidence,cv,subj,body`; `conf` must be `verified` or `high`, `evidence` the URL(s) proving it, body without the `Hi X,` line) to `<scratchpad>/coldbatch.json` and save a readable copy to `documents/context/cold-emails-YYYY-MM-DD.md`.
 
 ## Step 6: Send (local SMTP script, CV attached)
 
@@ -80,7 +85,7 @@ Write the batch as JSON (fields `co,name,first,title,type,url,email,basis,conf,c
 If it exits asking for credentials, tell Adel to paste his app password into `.env` (https://myaccount.google.com/apppasswords). Do not fall back to Chrome unless he asks.
 After the run: append the batch to `documents/context/outreach-log.md` (Email channel), wait ~2 minutes, check `from:mailer-daemon newer_than:1h` with the Gmail connector and `--mark bounced` any bounce.
 
-Pace: up to ~30-40 emails per day, at most 5 people per company per run. Stop the day early if more than 3 bounces come back (bad guesses hurt deliverability).
+Pace: up to ~30-40 emails per day, at most 5 people per company per run. The sender refuses any row that is not `verified`/`high` with evidence, and refuses to send at all if there was a bounce in the last 7 days (Adel's bounce budget); after a bounce, re-check that company's format with fresh examples before emailing it again.
 
 ## Step 7: Report to Adel
 

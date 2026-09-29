@@ -8,7 +8,9 @@ Usage:
   python tools/send_cold_emails.py <batch.json> --dry-run        # show what would be sent, send nothing
   python tools/send_cold_emails.py <batch.json> [--delay 20] [--limit N]
 
-batch.json: list of {co,name,first,title,url,email,basis,conf,cv,subj,body}; body excludes the "Hi X," line.
+batch.json: list of {co,name,first,title,type,url,email,basis,conf,evidence,cv,subj,body}; body excludes the "Hi X,"
+line. Rows are refused unless conf is "verified" or "high" AND evidence (URLs proving the address/format) is set.
+The whole run is refused if any email bounced in the last 7 days, unless --allow-after-bounce.
 `cv` is a PDF path relative to cv/ (e.g. main_cold_g42.pdf); it is attached as Adel_Abdelmoaty_Resume.pdf.
 Every email sent is added to documents/context/cold-email-targets.csv (status sent). People already in the
 tracker are skipped, so re-running a batch never double-sends. Emails land in Gmail's Sent folder as usual.
@@ -23,6 +25,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import cold_email  # noqa: E402
 
 ATTACH_NAME = "Adel_Abdelmoaty_Resume.pdf"
+BOUNCE_PAUSE_DAYS = 7
 
 
 def load_env():
@@ -53,17 +56,31 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--delay", type=float, default=20, help="seconds between emails (default 20)")
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--allow-after-bounce", action="store_true",
+                    help="send despite a bounce in the last 7 days (only with Adel's explicit OK)")
     a = ap.parse_args()
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
 
     batch = json.load(open(a.batch, encoding="utf-8"))
     rows = cold_email.load()
+
+    # Deliverability guard (Adel, 2026-09-29): bounce budget is at most 1 per 1-2 weeks.
+    recent = [r for r in rows if r["status"] == "bounced" and (cold_email.days_ago(r["sent_on"]) or 99) < BOUNCE_PAUSE_DAYS]
+    if recent and not a.allow_after_bounce and not a.dry_run:
+        last = max(r["sent_on"] for r in recent)
+        sys.exit(f"Paused: {len(recent)} bounce(s) in the last {BOUNCE_PAUSE_DAYS} days (latest {last}). "
+                 f"Re-verify formats, then ask Adel before re-running with --allow-after-bounce.")
+
     done = {r["email"].lower() for r in rows}
     todo, problems = [], []
     for e in batch:
         if e["email"].lower() in done:
             print(f"  skip (already in tracker): {e['name']} <{e['email']}>")
+            continue
+        if e.get("conf") not in ("verified", "high") or not e.get("evidence"):
+            print(f"  REFUSED (address not proven - conf={e.get('conf')!r}, evidence missing?): "
+                  f"{e['name']} <{e['email']}> -> contact on LinkedIn instead")
             continue
         if not (ROOT / "cv" / e["cv"]).exists():
             problems.append(f"missing CV cv/{e['cv']} for {e['name']}")
