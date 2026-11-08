@@ -31,6 +31,23 @@ Secondary (company career pages via Google, high-priority targets):
 
 Organised by **function**, with several title variants per category. Always add graduate / junior / early-career variants, because Adel is a December 2026 graduate: `graduate`, `junior`, `associate`, `entry level`, `trainee`, `2027`.
 
+### Default run for this profile (set by Adel 2026-10-07)
+
+Adel found exact-title searches too narrow. Every `/scrape` (not only "broad") runs **Priorities 1-4** with the **CLI search terms** below on LinkedIn (`--page 1` and `--page 2`), the Indeed connector, and freehire. The experience filter (drop 3+ years) still applies, so the shortlist stays short.
+
+**Technical roles only (Adel 2026-10-20).** No finance, FP&A, business-analyst or finance-systems roles, ever. Security must get equal weight with AI: senior security postings dominate the UAE feeds, so always run the entry-level security terms below as their own searches (Dubai and Abu Dhabi separately) and make sure the brief shows security roles, or says plainly that none passed the filters.
+
+CLI search terms (plain keywords, one search each):
+
+- **AI:** AI Engineer, Generative AI Engineer, AI Security, Machine Learning Engineer, ML Engineer, LLM, AI Developer, Data Scientist, AI Consultant, AI Solutions, Automation Engineer, Automation Developer, RPA, Integration Engineer
+- **Security:** Security Engineer, Cybersecurity Consultant, SOC Analyst, Cyber Security Analyst, Cyber Security Engineer, Information Security, Network Security Engineer, GRC Analyst, Cloud Security, IAM
+- **Security, entry-level (run every time):** junior security, graduate cyber security, security analyst, SOC L1, SOC Level 1, security operations, threat intelligence, vulnerability management, vulnerability assessment, penetration testing, application security, DevSecOps, incident response, GRC, identity access management, PAM, OT security, firewall engineer, SIEM, security presales, information security officer
+- **Networking / infrastructure:** network engineer, junior network engineer, NOC engineer, systems engineer, infrastructure engineer, Linux engineer, site reliability engineer
+- **Support / delivery:** support engineer, technical support engineer, implementation engineer, QA automation engineer
+- **Presales / consulting:** Presales Engineer, Pre-Sales Consultant, Solutions Engineer, Solutions Consultant, Solutions Architect, Sales Engineer, Customer Engineer, Technical Account Manager, Implementation Engineer, Technical Consultant, IT Consultant, Associate Consultant, Technology Consultant, Digital Transformation
+- **Software / data / cloud:** Software Engineer, Python Developer, Backend Developer, Data Engineer, Data Analyst, Cloud Engineer, DevOps Engineer
+- **Entry-level catch-alls:** Fresh Graduate, Graduate, Graduate Programme, Entry Level, Junior, Trainee, Associate, 2027
+
 ### Priority 1: AI & Security Engineering / Consulting (deep-technical first role)
 
 The career sequence starts here: deep technical work in AI and security.
@@ -90,16 +107,9 @@ site:bayt.com "Python" developer junior Dubai
 "Machine Learning Engineer" OR "Data Scientist" graduate UAE
 ```
 
-### Priority 5: Financial / Business Analyst (Finance minor lane)
+### Priority 5: removed
 
-Finance minor plus accounting automation qualifies him. Flag the experience gap honestly.
-
-```
-site:linkedin.com/jobs "Financial Analyst" OR "Business Analyst" graduate Dubai
-"FP&A Analyst" OR "Finance Automation" junior UAE
-"Business Analyst" fintech OR "digital transformation" junior Dubai
-"Finance Systems Analyst" OR "ERP Analyst" OR "RPA Developer" Dubai
-```
+Finance / business-analyst roles were dropped on 2026-10-20 at Adel's request (technical roles only).
 
 ## Location Filter
 
@@ -134,4 +144,4 @@ Only include jobs posted within the last 14 days, or with an application deadlin
 If the user specifies a focus area, select queries from the matching category and also generate 2-3 custom queries for that focus. For example:
 - "/scrape presales" -> Priority 2 queries + custom queries for specific vendors
 - "/scrape dell" -> Dell careers page + LinkedIn "Dell Technologies" UAE + flag the referral route
-- "/scrape finance" -> Priority 5 queries
+- "/scrape security" -> Priority 1 security queries + the entry-level security terms, Dubai and Abu Dhabi searched separately

@@ -44,7 +44,7 @@ Optional arguments:
 
 ### Step 1: Search
 
-Read `search-queries.md` (this directory) for the search strategy. By default, run the top 3 priority query categories. If the user said "broad", run all categories. If the user specified a focus area (e.g. "data science"), prioritize queries from that category.
+Read `search-queries.md` (this directory) for the search strategy. By default, run the top 3 priority query categories, unless `search-queries.md` sets a different default run for this profile (it does: Priorities 1-4 with its CLI search-term list). If the user said "broad", run all categories. If the user specified a focus area (e.g. "data science"), prioritize queries from that category.
 
 **Use the installed CLI tools as the primary search mechanism.** Fall back to `WebSearch` only for portals that do not have a CLI skill, or if `bun` is unavailable on the system.
 

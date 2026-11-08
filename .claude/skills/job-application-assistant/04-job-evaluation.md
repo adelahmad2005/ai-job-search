@@ -104,7 +104,7 @@ Does the role and company culture match the behavioral profile?
 - Requires relocation **within the UAE** (Abu Dhabi, Sharjah, Ajman, RAK, Al Ain etc.): PASS (he is willing)
 - Requires relocation **outside the UAE**: FAIL (deal-breaker)
 - Remote from Dubai for a non-UAE employer: FLAG (check contract and payroll setup)
-- Frequent international travel: FLAG (discuss with user)
+- Travel, including frequent international travel or client-site work: PASS. Adel actively wants travel (confirmed 2026-10-07), so count it as a plus under Behavioral Fit, never as a flag or a gap. Only the role's **base** matters: based outside the UAE is still FAIL.
 
 ### 5. Career Alignment & Motivation (0-100)
 Does this role advance career goals and contain tasks that energize?
@@ -116,10 +116,12 @@ Does this role advance career goals and contain tasks that energize?
 | 40-59 | Decent job but doesn't build toward career goals |
 | 0-39 | Dead end or backwards step |
 
+**All technical lanes are equal (Adel 2026-11-01).** Networking, presales, technical consulting, software/dev, cloud/DevOps, data, QA automation, infra and support engineering score the same career alignment as AI and security. Never lower a score or list a gap because a role is "not AI or security"; networking in particular is a valid path into security. Score career alignment on technical depth, learning and growth, not on the lane. Only finance and non-technical roles are out.
+
 **Career goals:**
 - **Near term (2027 start):** a deeply technical first role in AI and/or security: AI engineer, automation engineer, security engineer/consultant, or a technical graduate programme. Offensive security is a named interest.
 - **Next step:** services presales / solution consulting specialised in security (and AI). Services presales or solutions roles are acceptable as a *first* role too if they stay technical (his two resumes target exactly these two lanes: AI & Security, Services Presales).
-- **Later:** a broader commercial or advisory role. Sequence matters: deep technical first, because technical to commercial is easy and the reverse is very hard. Also surface **software engineering, data, platform, technical consulting and financial/business analyst** roles (Finance minor + accounting automation qualify him). Do not hide them.
+- **Later:** a broader commercial or advisory role. Sequence matters: deep technical first, because technical to commercial is easy and the reverse is very hard. Also surface **software engineering, data, platform, networking, presales and technical consulting** roles at equal weight. Do not hide them. No finance or business-analyst roles (Adel 2026-10-20).
 
 **Motivation filter:** Evaluate not just whether you *can* do the tasks, but whether the tasks will *energize* you. Consider:
 - Tasks that energize: building complete working systems end to end, applied AI and agent tooling, security design, solving a specific problem for a named stakeholder, customer-facing technical problem solving, proposals that turn a business problem into an architecture, infrastructure debugging

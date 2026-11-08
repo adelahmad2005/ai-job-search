@@ -17,13 +17,17 @@ if a posting needs something not in here, it is a gap to report, never a sentenc
 - **LinkedIn:** https://linkedin.com/in/adel-abdelmoaty-25aa5424b
 - **GitHub:** https://github.com/adelahmad2005
 - **Website:** none. `by-adel.uk` was deliberately dropped on 2026-09-24. Do not add it back unless Adel says a portfolio is live there.
-- **Status:** Final-year B.Sc. Computer Science student (Minor in Finance), graduating December 2026. Freelance AI Automation Engineer (The Bookkeeper UAE, ongoing). **Available full-time from January 2027**; part-time or project work possible before then.
+- **Status:** Final-year B.Sc. Computer Science student (Minor in Finance), graduating December 2026. Freelance AI Automation Engineer (The Bookkeeper UAE, 06/2026 - 10/2026, finished). **Available full-time from January 2027**; part-time or project work possible before then.
 - **Nationality:** Egyptian (confirmed by Adel 2026-09-26; answer when a form asks). Ethnicity questions: pick "Middle Eastern / North African" or "Arab" where offered.
 - **Pronouns:** he/him (confirmed by Adel 2026-09-26). Gender on forms: Male.
 - **Disability:** none, never had one (confirmed by Adel 2026-09-26; answer "No" when asked).
 - **Work authorisation:** UAE resident. **No visa sponsorship required** (state this on applications, it is a real advantage in the UAE market).
+- **Residence:** UAE **Golden Visa** holder (confirmed by Adel 2026-10-19). Golden Visa = long-term residency, not a work permit: MOHRE requires a private-sector employer to issue a work permit on hiring (no visa sponsorship). Form answers: valid residency permit = **Yes**; valid work permit = **No** (none held yet); sponsorship needed = **N/A**.
+- **Prior-employer agreements:** signed an **NDA with Dell Technologies** for the internship (confirmed by Adel 2026-10-19). No non-compete recorded. Answer "Yes" to form questions that ask about NDAs / restrictive agreements, and describe it as a standard internship NDA.
+- **Family/close relationships at employers:** none at HPE (confirmed 2026-10-19).
 - **Notice period:** none.
-- **Constraints:** Based in Dubai. Willing to relocate within the UAE. Not seeking roles outside the UAE.
+- **Constraints:** Based in Dubai. Willing to relocate within the UAE. Not seeking roles based outside the UAE.
+- **Travel:** welcomes it, including frequent international travel and client-site work (confirmed by Adel 2026-10-07). Treat travel as a positive, never a flag.
 
 ### Languages
 
@@ -39,7 +43,7 @@ if a posting needs something not in here, it is a gap to report, never a sentenc
 | B.Sc. Computer Science, Minor in Finance (**in progress, expected December 2026**) | 08/2022 - 12/2026 | American University of Sharjah, Sharjah, UAE | Network Security, Operating Systems, Databases, Distributed Systems, Computer Networks, Machine Learning, Financial Analysis |
 
 - **GPA:** 2.79 / 4.0 (confirmed by Adel 2026-09-26). Do not put it on resumes. It is below the usual 3.0 / UK 2:1 cutoff, so flag any posting that states a GPA or degree-class minimum.
-- **Senior Design Project (ongoing):** Assistive AI Perception & Navigation System. Real-time embedded system combining object detection, OCR and voice interaction for visually impaired users; edge-deployed models with privacy-aware data handling; secure SDLC with threat modelling and input sanitisation at each layer.
+- **Senior Design Project (ongoing, team project, confirmed by Adel 2026-10-19; team size and his exact role not yet recorded, ask before stating them):** Assistive AI Perception & Navigation System. Real-time embedded system combining object detection, OCR and voice interaction for visually impaired users; edge-deployed models with privacy-aware data handling; secure SDLC with threat modelling and input sanitisation at each layer.
 - **NGN397 internship course** (Dell placement), internship coordinator Dr. Almira Zholamanova. Full report with day-by-day journal: `documents/context/Internship_Report_Adel_Ahmad_NGN397.pdf`.
 
 ## Certifications
@@ -48,8 +52,8 @@ if a posting needs something not in here, it is a gap to report, never a sentenc
 
 ## Professional Experience
 
-### AI Automation Engineer (Freelance) - The Bookkeeper UAE (06/2026 - Present)
-Dubai, UAE. Paid, ongoing.
+### AI Automation Engineer (Freelance) - The Bookkeeper UAE (06/2026 - 10/2026)
+Dubai, UAE. Paid. **Engagement finished 10/2026 (end month confirmed by Adel 2026-11-08).** Use "06/2026 - 10/2026" on new CVs. The Netways CV (submitted 2026-10) still says "Present", which was true at the time.
 - Built an end-to-end AI document pipeline (email intake, vision extraction, human review, posting to QuickBooks Online) on n8n, with direct REST and OAuth 2.0 integrations to the OpenAI, Google Drive, Google Sheets and QuickBooks APIs (four external APIs).
 - Designed human-in-the-loop approval so no AI-extracted financial data posts without sign-off; prompt-engineered structured JSON extraction from PDFs and photographed receipts across multi-currency and tax-inclusive edge cases.
 - Applied double-entry principles to route documents to the correct transaction type across multiple client entities.
@@ -83,6 +87,8 @@ Dubai, UAE. Ended.
 10. **Industry events.** Agentic AI Innovators Forum at Dtec, CyberE71, a Dubai digital authority session with Dell and Intel. Found and arranged himself.
 11. **Production deployment.** n8n plus a FastAPI backend on a hardened VPS behind Cloudflare: Nginx reverse proxy, Let's Encrypt TLS, systemd units, UFW default-deny, key-only SSH. Three real incidents diagnosed with standard tooling. (Set by an AI presales engineer.)
 12. **Playbook Builder.** Voice note to ready-to-run Excel batch for the Technical Customer Success team. 3,908 lines of Python, 216 automated tests, **zero external LLM calls** (data-governance constraint prohibited them, and a closed vocabulary of 11 values made a model unnecessary). Replaced roughly six hours of manual entry per run. Refuses ambiguous input after real dictation produced a valid-looking account ID belonging to a different customer.
+   - Messaging-bot disagreement (confirmed by Adel 2026-11-04): his manager asked for a Telegram integration. Bot traffic is not end-to-end encrypted, so he built and tested it but gated it (named sign-off, sender allowlist, machine-local token) and recommended corporate email / OneDrive as the default; left the go-live as a data-governance decision.
+   - Feedback he cites (confirmed 2026-11-04): a Solution Principal at Dell told him organisation and documentation matter as much as the work itself. Evidence he acted on it: weekly Friday written updates, handover packs, documentation generated from the running app.
 
 ## Independent Projects
 - **Assistive AI Perception & Navigation System** (Senior Design Project, ongoing): real-time embedded object detection + OCR + voice interaction for visually impaired users, edge-deployed, privacy-aware, secure SDLC.

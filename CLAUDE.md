@@ -26,7 +26,7 @@ Full detail (all 12 Dell projects, metrics, network) lives in `.claude/skills/jo
   | English | Fluent |
 - **CV language:** English
 
-- **Status:** Final-year CS student, graduating December 2026, **available full-time January 2027** (part-time/project work before then). Freelance AI Automation Engineer at The Bookkeeper UAE (ongoing). No notice period.
+- **Status:** Final-year CS student, graduating December 2026, **available full-time January 2027** (part-time/project work before then). Freelance AI Automation Engineer at The Bookkeeper UAE (06/2026 - 10/2026, finished). No notice period.
 - **LinkedIn headline:** "AI & Cybersecurity | CS Senior, Finance Minor, American University of Sharjah | Dell Intern" (from LinkedIn export, 2026-09-26)
 
 ### Education
@@ -35,7 +35,7 @@ Full detail (all 12 Dell projects, metrics, network) lives in `.claude/skills/jo
   - Topics: Network Security, Operating Systems, Databases, Distributed Systems, Computer Networks, Machine Learning, Financial Analysis
 
 ### Professional Experience
-- **AI Automation Engineer (Freelance)** (06/2026 - Present) - **The Bookkeeper UAE** (Dubai)
+- **AI Automation Engineer (Freelance)** (06/2026 - 10/2026) - **The Bookkeeper UAE** (Dubai)
   - End-to-end AI document pipeline on n8n: email intake, vision extraction, human review, posting to QuickBooks Online; REST/OAuth 2.0 across OpenAI, Google Drive, Google Sheets, QuickBooks
   - Human-in-the-loop approval for all AI-extracted financial data; fixed memory exhaustion and silent data-loss bugs in production
   - Scoped and priced the engagement himself; converted the PoC into a paid follow-on with expanded scope
@@ -73,7 +73,8 @@ Full detail (all 12 Dell projects, metrics, network) lives in `.claude/skills/jo
 
 ### Target Sectors
 - Primary lanes: **AI and security consulting / engineering** and **services presales / solution consulting** (e.g. Dell Technologies, NVIDIA, Red Hat, VMware/Broadcom, IBM, Microsoft, Cisco, Palo Alto Networks, Fortinet, Help AG, CPX, G42/Core42, Big Four technology & cyber practices, UAE systems integrators and distributors)
-- Also surface: software / data / platform / automation engineering, technical consulting, and **financial / business analyst** roles (Finance minor) across the UAE
+- Also surface: security operations / GRC / IAM / cloud security, networking, cloud / DevOps / SRE, software / data / platform / automation engineering, and technical consulting across the UAE. Security gets equal weight with AI, not an afterthought.
+- **No finance roles** (Adel 2026-10-20: technical only). Never surface financial / business analyst, FP&A or finance-systems roles, even though he has a Finance minor.
 
 ### Deal-breakers
 - Roles outside the UAE / requiring relocation abroad
@@ -89,7 +90,10 @@ Full detail (all 12 Dell projects, metrics, network) lives in `.claude/skills/jo
 - **Never** put a claim on a CV that is not in `01-candidate-profile.md`.
 - **Resumes: 1 page maximum, always.** Same format and plain language as his resumes in `documents/cv/`; start from `cv/main_example.tex` (AI & Security) or `cv/main_base_presales.tex` (Presales). No jargon, no "self-initiated"-style wording.
 - Salary fields: leave blank; if a form hard-requires a number, stop and ask.
-- **LinkedIn referral outreach = `/network`:** 15 people per weekday, max 2 per company per day, Dell excluded (Adel does those himself). Messages ~300 chars, 3 sentences. Delivered **always** as the HTML send sheet (`tools/network_sendsheet.py`); Adel sends by hand, never automated. Tracked in `documents/context/network-queue.csv` via `tools/network_rank.py` (`--mark sent`, `--reply`, `--report`); one follow-up after 7 days, close 7 days later.
+- **LinkedIn referral outreach = `/network`:** 15 people per weekday, max 2 per company per day, Dell excluded (Adel does those himself). Messages ~300 chars, 3 sentences. Delivered **always** as the HTML send sheet (`tools/network_sendsheet.py`); Adel sends by hand, never automated. Tracked in `documents/context/network-queue.csv` via `tools/network_rank.py` (`--mark sent`, `--reply`, `--report`); **no follow-ups, ever** (Adel 2026-10-19: following up is harassment/spam); no reply after 21 days, mark `no_reply`.
+- **Never send any email without Adel's explicit "send"** for that batch (2026-10-19). Draft, dry-run, show, wait.
+- **No follow-ups anywhere:** never send or draft follow-ups for cold emails, LinkedIn messages or quiet applications. One message per person; if they don't answer, so be it.
+- **Outreach spacing:** cold email at most 1 person per company per run, and at least 7 days before emailing another person at the same company.
 - Before suggesting a contact, check `documents/context/outreach-log.md`; flag roles at Dell / NVIDIA / Red Hat / VMware-Broadcom / IBM for a referral ask.
 
 ## Repo Structure
