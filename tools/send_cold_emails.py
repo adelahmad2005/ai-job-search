@@ -57,7 +57,8 @@ def main():
     ap.add_argument("--allow-after-bounce", action="store_true",
                     help="send despite a bounce in the last 7 days (only with Adel's explicit OK)")
     ap.add_argument("--allow-company-repeat", action="store_true",
-                    help="skip the 7-day gap between people at one company (only with Adel's explicit OK)")
+                    help="allow several people at one company in a run and skip the 7-day gap "
+                         "(only with Adel's explicit OK for that batch)")
     a = ap.parse_args()
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
@@ -81,7 +82,7 @@ def main():
             continue
         # One person per company per run, and 7+ days since the last email there (Adel, 2026-10-19)
         co = e["co"].casefold()
-        if co in batch_cos:
+        if co in batch_cos and not a.allow_company_repeat:
             print(f"  REFUSED (second person at {e['co']} in one run): {e['name']} <{e['email']}>")
             continue
         last = [cold_email.days_ago(r["sent_on"]) for r in rows
