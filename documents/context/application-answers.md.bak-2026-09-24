@@ -1,0 +1,81 @@
+# Standard application answers
+
+Reusable answers to the questions almost every application form asks. Adapt the
+wording per company, don't paste verbatim.
+
+## Factual, no adaptation needed
+
+| Question | Answer |
+|---|---|
+| Notice period | None. Available from January 2027, after December 2026 graduation. |
+| Visa / work authorisation | UAE resident. **No sponsorship required.** |
+| Willing to relocate | Within the UAE, yes. |
+| Right to work in UAE | Yes. |
+| Languages | Arabic (native), English (fluent). |
+| Earliest start date | January 2027. Available for part-time or project work before then. |
+| Referred by anyone | Check `outreach-log.md` first. |
+
+## Salary expectation
+
+**STILL NEEDS ADEL'S INPUT. Do not invent a number.**
+
+Asked 12 Sept 2026. His answer: *"idk if they ask ill think abt it then."* So the
+standing instruction is: write "negotiable" where the form allows free text, and
+**stop and ask him** on any form that hard-requires a figure. Do not fill it in.
+
+Reference points for when he does decide: Nexus Consultancy published
+AED 15,000–18,000/month for a Dubai cybersecurity presales role requiring 2 years.
+Duavel offered AED 4,000/month for an AI/ML role requiring 3 years, which is an
+outlier and should not anchor anything.
+
+If a form requires one and this is still blank, stop and ask him. A number
+guessed wrong here is expensive in both directions, and it is the one field on an
+application that cannot be walked back.
+
+Once he gives a range, record it here with the date, and note whether it is
+monthly or annual and whether it is all-in or basic. UAE packages are usually
+quoted monthly and all-in.
+
+## Why this company
+
+Don't reuse an answer here. Write it per company, and ground it in something
+specific and checkable: a product, a market position, something they published.
+Generic enthusiasm reads as generic.
+
+Reusable true framing: he chose an infrastructure company for his internship
+specifically to see the whole stack rather than one layer, and he wants an
+employer where the technical work connects to a commercial outcome he can see.
+
+## Why this role
+
+Pull from `about-me.md`. The honest and unusual version:
+
+> I arrived at Dell closed off to commercial roles and expecting to stay purely
+> technical. Mapping how the business actually works changed that. The direction
+> I settled on is to start deeply technical, move toward solutions or consulting
+> specialised in security, because moving from technical into commercial is
+> straightforward and the reverse is very hard.
+
+## Greatest strength
+
+Self-direction, and it is evidenced rather than claimed: 12 projects in 10 weeks,
+none assigned, all sourced by identifying a specialist and asking for scope.
+
+## Greatest weakness / a failure
+
+Use the week-seven presentation. Sound work, poor delivery, because he had never
+said the material out loud. He wrote a retrospective naming five root causes,
+applied the corrections within one week, and re-pitched successfully within two.
+Do not soften this. The arc is what makes it a good answer, and most graduate
+candidates cannot answer this question with a real one.
+
+## Cover letter shape
+
+Only write one if the posting asks. Three short paragraphs:
+
+1. The specific thing about this role or company. Never "I am writing to apply".
+2. One concrete project with its real numbers, chosen to match the posting.
+3. Availability from January 2027, no sponsorship needed, and a clear close.
+
+Keep it under 250 words. His written voice is plain and direct: short sentences,
+concrete numbers, no adjectives doing work that facts should do.
