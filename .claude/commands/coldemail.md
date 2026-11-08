@@ -1,6 +1,6 @@
 # /coldemail - Find Recruiters & Hiring Managers and Send Tailored Cold Emails
 
-You are running Adel's cold-email outreach: find the people who hire for his lanes at target companies in the UAE, work out their work email, send each a short tailored email with a tailored one-page CV attached, and track delivery, bounces, replies and follow-ups in `documents/context/cold-email-targets.csv` (managed by `tools/cold_email.py`, shown in `/html-report`).
+You are running Adel's cold-email outreach: find the people who hire for his lanes at target companies in the UAE, work out their work email, send each a short, human email asking for a referral (no CV, no attachments), and track delivery, bounces, replies and follow-ups in `documents/context/cold-email-targets.csv` (managed by `tools/cold_email.py`, shown in `/html-report`).
 
 `$ARGUMENTS`:
 - `go` (or empty): general run across target companies, **one person per company per run** across as many companies as have a proven email format.
@@ -61,43 +61,27 @@ Adel's Gmail must never be flagged as spam. **Bounce budget: at most 1 bounce pe
 5. **Known failures** (bounced 2026-09-28, 550 5.4.1 recipient rejected): `ammar.mohammad@g42.ai`, `ammar.mohammad@core42.ai`, `nancy.naweto@microsoft.com`, `zulul.huma@cpx.net`. Also `nirmal.manoharan@g42.ai` (2026-10-20, 550 5.4.1 Access denied) despite first.last@g42.ai having 3 delivered examples: G42 rejects some real-format addresses, so **G42 itself** is on this list too. G42, Core42, CPX and Microsoft all reject unknown recipients, so any guess there is high risk: only published addresses or ≥2 matching examples from the same entity.
 6. Never use personal (gmail/hotmail) addresses. Never more than one attempt per person; a bounced person is LinkedIn-only forever.
 
-## Step 4: Tailored CV per company
+## Step 4: No CV (rule since 2026-11-08)
 
-**Properly tailored, one CV per person** (Adel, 2026-10-19: changing only the "Targeting" sentence is not tailoring). Decide the email's one project first (Step 5), then build the CV around the same person: `cv/main_cold_<company>_<surname>.tex`. **Never reuse** an earlier `main_cold_*` CV for a new person.
-
-Start from the matching base:
-- AI engineering lanes (G42, Core42, Inception, OpenAI, Microsoft, AWS, Oracle AI, Big Four AI & data...): base `cv/main_cohere_forward_deployed_engineer_agentic_platform.tex`
-- Security lanes (CPX, Help AG, Palo Alto, Fortinet, CrowdStrike, Check Point, Big Four cyber): base `cv/main_example.tex`
-- Presales / infrastructure lanes (Cisco, Red Hat, NVIDIA, Broadcom, HPE, distributors, SIs): base `cv/main_base_presales.tex`, or the tailored CV of a live application to that company if one exists
-
-Then tailor all of the following, using only facts from `01-candidate-profile.md`:
-1. **Summary:** 3-4 lines aimed at this person's team and lane (e.g. "AI and data consulting at Deloitte"), naming the project the email leads with. No sponsorship, residency or availability phrase.
-2. **Bullet order:** in each role, the bullet for the email's project comes first, then the next most relevant to this person's work. A cold CV must never start with the same bullets as its base unless those really are the best fit.
-3. **Bullet wording:** reword the top 2-3 bullets in this team's own terms where truthful (security: threat modelling, zero trust; consulting: client requirements, proposals, delivery; presales: solution design, sizing, PoC; AI engineering: agents, RAG, evaluation, production).
-4. **Cut:** drop or shorten 1-2 bullets that don't serve this lane, to make room. Keep it to one page.
-5. **Skills:** first skill line = this lane's skills; reorder the items within each line so the most relevant come first.
-6. **Check:** `diff` the new `.tex` against its base and confirm changes beyond the Summary (at least the bullet order and the skills order). If only the Summary changed, it is not tailored: redo it.
-
-Show each CV's Summary and top bullets to Adel together with the email in the approval step (Step 6). Compile with the adel-onepage command (`rm -f X.pdf && lualatex -interaction=nonstopmode X.tex && python ../tools/clean_pdf.py X.pdf` from `cv/`), then `python tools/verify_pdf.py cv/X.pdf --pages 1` must pass. Facts only from `01-candidate-profile.md`. The sender attaches it as `Adel_Abdelmoaty_Resume.pdf` automatically.
+**Cold emails never carry a CV or any attachment** (Adel, 2026-11-08). The email is a short, human introduction and a polite referral ask; the person can look at his LinkedIn. Do not build `main_cold_*` CVs any more (older ones stay in `cv/` as history only).
 
 ## Step 5: Write the emails (memory: cold-email-style)
 
-- **Subject:** a direct request, e.g. `Request for Consideration: Entry-Level AI Engineering at Inception`; `Request for Referral: <Role>, <Company> <City>` when asking the person to route him to a named role's hiring team. Never "would love to join", never "Role - Name (credentials)".
-- **Length (Adel, 2026-10-22: "too long ... AI slop"): about 60-70 words before the signature.** Use the short shape below, not the long three-paragraph one: `I'm a final-year Computer Science student at AUS and interned at Dell Technologies this summer, where I <one project in plain words>.` / one plain sentence on why this company + the ask (`Would you be open to referring me, or pointing me to the right person? My CV is attached.`) / `Thank you,` + signature lines (name, phone, LinkedIn | GitHub). The sender does not add a signature, so it must be in `body`. Mix lanes and contact types across the run (Adel wants variety).
-- **Older long form (superseded, kept for reference):** `Hi <first>,` then three short paragraphs:
-  1. `I'm a Computer Science student at the American University of Sharjah, graduating in December 2026. This summer I interned at Dell Technologies' Infrastructure Solutions Group, where I <one or two projects from the profile that fit this company>.`
-  2. Specific enthusiasm for **this** company tied to what it actually does (verify any company fact you use), then the ask (be considered for entry-level X / point me to the hiring team for <named live role>).
-  3. `My CV is attached. Thank you for your time.`
-  Signature: `Best regards,` / `Adel Abdelmoaty` / `linkedin.com/in/adel-abdelmoaty-25aa5424b | github.com/adelahmad2005 | +971 56 211 4556`.
-- **Never** mention visa sponsorship, residency, nationality, "available full-time", or salary. No em-dashes, no banned words (05-cv-templates.md list). Every claim must be in `01-candidate-profile.md`.
-- Vary the enthusiasm sentence between companies so no two emails read identically.
-- By `type`: **recruiter** asks to be considered for entry-level roles / a named programme; **peer** asks, peer to peer, whether they'd be open to referring him (or pointing him to the right team) for a named role or entry-level openings, subject `Request for Referral: <Role/Team> at <Company>`; **lead** leads with the single strongest matching project and asks whether the team takes graduates, subject `Request for Consideration: <Team> at <Company>`.
+- **Shape (Adel, 2026-11-08): brief, polite, professional, human.** About 40-60 words before the signature, three short parts:
+  1. Who he is, in one plain line: `I'm Adel, a final-year Computer Science student at the American University of Sharjah, graduating in December 2026.` (a Dell internship mention is fine as part of who he is, e.g. `and I interned at Dell Technologies this summer`).
+  2. That he would genuinely like to work at **this** company, in one plain sentence, ideally naming the role or programme (e.g. `I've applied for the Energy Tech Accelerator Graduate Program and would really like to join Schneider Electric.`).
+  3. The ask, politely: `Would you be open to referring me, or pointing me to the right person? I'd really appreciate it.` Then `Thank you,` + signature.
+- **Do not** list projects, numbers or achievements ("I recently built X", "I delivered 12 projects..."). **Do not** write "my CV is attached". No flattery, no stacked adjectives, nothing that reads as AI-written.
+- **Subject:** a direct request, e.g. `Request for Referral: Energy Tech Accelerator Graduate Program`, or `Request for Consideration: Entry-Level <Team> at <Company>` when there is no named role. Never "would love to join", never "Role - Name (credentials)".
+- **Signature** (the sender adds none, so it must end `body`): `Adel Abdelmoaty` / `+971 56 211 4556` / `linkedin.com/in/adel-abdelmoaty-25aa5424b | github.com/adelahmad2005`.
+- **Never** mention visa sponsorship, residency, nationality, "available full-time", or salary. No em-dashes, no banned words (05-cv-templates.md list). Vary the wording between companies so no two emails read identically.
+- By `type`: **recruiter** asks to be considered for the named role / entry-level roles; **peer** asks whether they'd be open to referring him or pointing him to the right person; **lead** asks whether the team takes graduates.
 
-Write the batch as JSON (fields `co,name,first,title,type,url,email,basis,conf,evidence,cv,subj,body`; `conf` must be `verified` or `high`, `evidence` the URL(s) proving it, body without the `Hi X,` line) to `<scratchpad>/coldbatch.json` and save a readable copy to `documents/context/cold-emails-YYYY-MM-DD.md`.
+Write the batch as JSON (fields `co,name,first,title,type,url,email,basis,conf,evidence,subj,body`; `conf` must be `verified` or `high`, `evidence` the URL(s) proving it, body without the `Hi X,` line) to `<scratchpad>/coldbatch.json` and save a readable copy to `documents/context/cold-emails-YYYY-MM-DD.md`.
 
-## Step 6: Send (local SMTP script, CV attached)
+## Step 6: Send (local SMTP script, no attachment)
 
-`python tools/send_cold_emails.py <scratchpad>/coldbatch.json --dry-run` to check, show Adel the batch, and **wait for his explicit "send"**. Only then run it without `--dry-run`. It sends from Adel's Gmail over SMTP using the app password in the gitignored `.env` (Adel filled it in; never read, print or echo `.env`), attaches `cv/<cv>` as `Adel_Abdelmoaty_Resume.pdf`, waits 20 s between emails, skips anyone already in the tracker, and adds every sent email to `cold-email-targets.csv` with its `contact_type`. Sent mail appears in Gmail's Sent folder.
+`python tools/send_cold_emails.py <scratchpad>/coldbatch.json --dry-run` to check (it prints every email in full), show Adel the batch, and **wait for his explicit "send"**. Only then run it without `--dry-run`. It sends plain-text email from Adel's Gmail over SMTP using the app password in the gitignored `.env` (Adel filled it in; never read, print or echo `.env`), attaches nothing, waits 20 s between emails, skips anyone already in the tracker, and adds every sent email to `cold-email-targets.csv` with its `contact_type`. Sent mail appears in Gmail's Sent folder.
 If it exits asking for credentials, tell Adel to paste his app password into `.env` (https://myaccount.google.com/apppasswords). Do not fall back to Chrome unless he asks.
 After the run: append the batch to `documents/context/outreach-log.md` (Email channel), wait ~2 minutes, check `from:mailer-daemon newer_than:1h` with the Gmail connector and `--mark bounced` any bounce.
 

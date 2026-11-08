@@ -1,4 +1,5 @@
-"""Send a /coldemail batch from Adel's Gmail over SMTP, each email with its tailored CV attached.
+"""Send a /coldemail batch from Adel's Gmail over SMTP. Plain text, NO attachments (Adel, 2026-11-08:
+no CV on cold emails, ever; a brief, human referral ask instead).
 
 Credentials come from the gitignored .env in the repo root (Adel fills it in himself):
   GMAIL_ADDRESS=adelahmad2005@gmail.com
@@ -8,10 +9,10 @@ Usage:
   python tools/send_cold_emails.py <batch.json> --dry-run        # show what would be sent, send nothing
   python tools/send_cold_emails.py <batch.json> [--delay 20] [--limit N]
 
-batch.json: list of {co,name,first,title,type,url,email,basis,conf,evidence,cv,subj,body}; body excludes the "Hi X,"
+batch.json: list of {co,name,first,title,type,url,email,basis,conf,evidence,subj,body}; body excludes the "Hi X,"
 line. Rows are refused unless conf is "verified" or "high" AND evidence (URLs proving the address/format) is set.
 The whole run is refused if any email bounced in the last 7 days, unless --allow-after-bounce.
-`cv` is a PDF path relative to cv/ (e.g. main_cold_g42.pdf); it is attached as Adel_Abdelmoaty_Resume.pdf.
+A `cv` key, if present in an old batch, is ignored: nothing is ever attached.
 Every email sent is added to documents/context/cold-email-targets.csv (status sent). People already in the
 tracker are skipped, so re-running a batch never double-sends. Emails land in Gmail's Sent folder as usual.
 """
@@ -24,7 +25,6 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 import cold_email  # noqa: E402
 
-ATTACH_NAME = "Adel_Abdelmoaty_Resume.pdf"
 BOUNCE_PAUSE_DAYS = 7
 
 
@@ -45,8 +45,6 @@ def build(e, sender):
     m["To"] = e["email"]
     m["Subject"] = e["subj"]
     m.set_content(f"Hi {e['first']},\n\n{e['body']}\n")
-    pdf = ROOT / "cv" / e["cv"]
-    m.add_attachment(pdf.read_bytes(), maintype="application", subtype="pdf", filename=ATTACH_NAME)
     return m
 
 
@@ -96,9 +94,6 @@ def main():
             print(f"  REFUSED (address not proven - conf={e.get('conf')!r}, evidence missing?): "
                   f"{e['name']} <{e['email']}> -> contact on LinkedIn instead")
             continue
-        if not (ROOT / "cv" / e["cv"]).exists():
-            problems.append(f"missing CV cv/{e['cv']} for {e['name']}")
-            continue
         todo.append(e)
     if problems:
         sys.exit("\n".join(problems))
@@ -107,7 +102,8 @@ def main():
 
     if a.dry_run:
         for e in todo:
-            print(f"- {e['name']} ({e['co']}) <{e['email']}> | {e['subj']} | cv/{e['cv']}")
+            print(f"- {e['name']} ({e['co']}) <{e['email']}> | {e['subj']} | no attachment")
+            print(f"    Hi {e['first']},\n    " + e["body"].replace("\n", "\n    "))
         print(f"{len(todo)} would be sent")
         return
 
@@ -139,12 +135,12 @@ def main():
                 if row["status"] == "queued":
                     row.update(status="sent", sent_on=today, confidence=e.get("conf", ""),
                                notes=(row["notes"] + " | " if row["notes"] else "")
-                               + f"subject: {e['subj']} | CV cv/{e['cv']}")
+                               + f"subject: {e['subj']} | no CV")
                 continue
             rows.append(dict(date=today, company=e["co"], name=e["name"], title=e.get("title", ""), location="UAE",
                              source="LinkedIn " + e.get("url", ""), email=e["email"], email_basis=e.get("basis", ""),
                              confidence=e.get("conf", ""), status="sent", sent_on=today, followup_on="",
-                             replied_on="", outcome="", notes=f"type: {e.get('type', '')} | subject: {e['subj']} | CV cv/{e['cv']}",
+                             replied_on="", outcome="", notes=f"type: {e.get('type', '')} | subject: {e['subj']} | no CV",
                              contact_type=e.get("type", "")))
         cold_email.save(rows)
     print(f"done: {len(sent)} sent, tracker updated. Check bounces in ~2 minutes: python tools/cold_email.py --report")
