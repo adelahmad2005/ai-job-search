@@ -31,11 +31,11 @@ G42 group (G42, Core42, Inception, Presight, AIQ, CPX), OpenAI (Abu Dhabi), Micr
 
 For `go`: skip people already contacted; a company can be revisited with new peers/leads, but not (`python tools/cold_email.py --contacted "<company>"`), unless the only contacts bounced. Prefer companies with a live UAE role from the latest `/scrape` or `careers-search` (name the role in the email).
 
-## Step 2: Find the people (LinkedIn, logged in, via Claude in Chrome)
+## Step 2: Find the people (LinkedIn, logged in, via opencli)
 
-Use Adel's signed-in LinkedIn in Chrome. People search filtered to the UAE (geoUrn 104305776):
+Use Adel's signed-in LinkedIn in Chrome through **opencli** (text only; see the browser ladder in `~/.claude/CLAUDE.md`), not Claude in Chrome screenshots. People search filtered to the UAE (geoUrn 104305776):
 `https://www.linkedin.com/search/results/people/?keywords=<Company>%20talent%20acquisition&geoUrn=%5B%22104305776%22%5D`
-(also try `<Company> recruiter`, and for small teams `<Company> <lane>` e.g. `presales`, `security`). Extract name, headline, location and profile URL with a `javascript_tool` snippet that walks lines followed by `• 1st/2nd/3rd`.
+(also try `<Company> recruiter`, and for small teams `<Company> <lane>` e.g. `presales`, `security`). Open it with `opencli browser open <url> --session linkedin`, then extract name, headline, location and profile URL with one `opencli browser eval "<js>" --session linkedin` snippet that walks lines followed by `• 1st/2nd/3rd`. Keep volume low (a handful of searches per run): LinkedIn locks accounts that look automated.
 
 **One person per company per run, never several at once** (Adel, 2026-10-19: emailing 3 people at the same company at the same time looks like spam and they compare notes). Wait at least 7 days after the last email to a company before emailing another person there. Pick the single best person (usually the peer in his target role, or the recruiter if there is a live posting), and record the type (`type` field in the batch JSON). Candidate types:
 - `recruiter` (1): UAE recruiter / TA partner covering tech, AI, security, early careers or campus.
@@ -43,7 +43,7 @@ Use Adel's signed-in LinkedIn in Chrome. People search filtered to the UAE (geoU
 - `lead` (1): team lead, engineering / presales manager, or head of the relevant practice (for startups: founder / CTO).
 Skip: executive-search / C-suite recruiters, Emiratization-only recruiters, anyone already in the tracker (`--contacted`), Dell, and anyone in `outreach-log.md` or `network-queue.csv` with status sent/replied. "Meet the hiring team" on a live UAE posting is always worth including.
 
-Keep extraction cheap: one search per company per type, pull name / headline / location / profile URL with a single `javascript_tool` call, no screenshots.
+Keep extraction cheap: one search per company per type, pull name / headline / location / profile URL with a single `opencli browser eval` call, no screenshots.
 
 ## Step 3: Work email (deliverability is the top priority)
 
