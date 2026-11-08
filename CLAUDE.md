@@ -94,6 +94,12 @@ Full detail (all 12 Dell projects, metrics, network) lives in `.claude/skills/jo
 - **Never send any email without Adel's explicit "send"** for that batch (2026-10-19). Draft, dry-run, show, wait.
 - **No follow-ups anywhere:** never send or draft follow-ups for cold emails, LinkedIn messages or quiet applications. One message per person; if they don't answer, so be it.
 - **Outreach spacing:** cold email at most 1 person per company per run, and at least 7 days before emailing another person at the same company.
+- **Default tools (2026-11-08; global ladder in `~/.claude/CLAUDE.md`, no screenshot browsing):**
+  - Job listings: `linkedin-search` (LinkedIn public jobs-guest API, has `isActive`), `careers-search` and the other `.agents/skills` portals, `python tools/symplicity.py list --new` (AUS portal). Do not use `agent-reach linkedin` for jobs; it only returns a few search-engine hits.
+  - Company / interview research: `agent-reach` (Reddit threads on a company or interview process, YouTube talks and subtitles, GitHub, X summaries), read-only, no logins.
+  - Logged-in sites and applying (Symplicity, Workday, LinkedIn Easy Apply, Gmail-free portals): `opencli` on Adel's signed-in Chrome, text refs, `opencli browser upload` for files. Never click buttons that open a native file picker.
+  - LinkedIn on Adel's account: light opencli reads only (as in `/coldemail` Step 2). Never connect `agent-reach` or any bulk tool to his LinkedIn login: his network and applications live on that account and LinkedIn restricts automated accounts.
+  - Claude in Chrome screenshots: only for visual checks, CAPTCHAs and sign-ins.
 - Before suggesting a contact, check `documents/context/outreach-log.md`; flag roles at Dell / NVIDIA / Red Hat / VMware-Broadcom / IBM for a referral ask.
 
 ## Repo Structure
