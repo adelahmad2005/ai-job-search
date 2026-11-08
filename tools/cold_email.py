@@ -23,8 +23,7 @@ TRACKER = ROOT / "documents/context/cold-email-targets.csv"
 FIELDS = ["date", "company", "name", "title", "contact_type", "location", "source", "email", "email_basis",
           "confidence", "status", "sent_on", "followup_on", "replied_on", "outcome", "notes"]
 # contact_type: recruiter (TA / HR / campus), peer (someone in Adel's target role), lead (team lead / hiring manager / founder)
-FOLLOWUP_DAYS = 7
-CLOSE_DAYS = 7
+NO_REPLY_DAYS = 21
 
 
 def load():
@@ -80,8 +79,10 @@ def report(rows):
     sent = [r for r in rows if r["sent_on"] and r["status"] != "bounced"]
     replied = [r for r in rows if r["status"] == "replied"]
     act = [r for r in replied if r["outcome"] in ("interview", "referral", "call", "advice")]
-    due = [r for r in rows if r["status"] == "sent" and (days_ago(r["sent_on"]) or 0) >= FOLLOWUP_DAYS]
-    close = [r for r in rows if r["status"] == "followed_up" and (days_ago(r["followup_on"]) or 0) >= CLOSE_DAYS]
+    # No follow-ups (Adel, 2026-10-19: following up is spamming). Unanswered
+    # emails are simply closed as no_reply after NO_REPLY_DAYS.
+    close = [r for r in rows if r["status"] in ("sent", "followed_up")
+             and (days_ago(r["sent_on"]) or 0) >= NO_REPLY_DAYS]
     waiting = [r for r in rows if r["status"] in ("sent", "followed_up")]
     bounced = [r for r in rows if r["status"] == "bounced"]
     rate = f"{round(100 * len(replied) / len(sent))}%" if sent else "n/a"
@@ -96,8 +97,8 @@ def report(rows):
     print()
     for title, lst, fmt in [
         ("Replies to act on", act, lambda r: f"{r['outcome']}: {r['notes'] or 'reply received'}"),
-        ("Follow-up due (sent 7+ days ago, no reply)", due, lambda r: f"sent {days_ago(r['sent_on'])}d ago"),
-        ("Close as no reply (followed up 7+ days ago)", close, lambda r: f"followed up {days_ago(r['followup_on'])}d ago"),
+        (f"Close as no reply (sent {NO_REPLY_DAYS}+ days ago; never follow up)", close,
+         lambda r: f"sent {days_ago(r['sent_on'])}d ago"),
         ("Bounced (find another route: LinkedIn / other contact)", bounced, lambda r: r["notes"][-80:]),
         ("Waiting", waiting, lambda r: f"sent {days_ago(r['sent_on'])}d ago"),
     ]:

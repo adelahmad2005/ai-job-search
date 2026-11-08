@@ -16,8 +16,7 @@ Follow these steps **in order**.
 
 Run `python tools/network_rank.py --report` and show Adel, before any new drafting:
 - **Replies to act on** (call / referral / advice): help him answer these first.
-- **Follow-up due** (sent 7+ days ago, no reply): draft the one-line follow-up for each.
-- **Close as no reply** (followed up 7+ days ago): mark them `--mark no_reply "<name>"`. Never a second follow-up.
+- **Close as no reply** (sent 21+ days ago, no reply): mark them `--mark no_reply "<name>"`. **Never draft or send a follow-up** (Adel, 2026-10-19: following up is harassment/spam; if they don't answer, so be it).
 
 ## Step 1: Get today's batch
 
@@ -56,14 +55,13 @@ Save all drafts to `documents/context/network-drafts-YYYY-MM-DD.md` (gitignored)
 
 `documents/context/network-queue.csv` is the single tracker for LinkedIn outreach (opens in Excel). Columns: `status`, `sent_on`, `followup_on`, `replied_on`, `outcome`, `notes`. **Do not also add these people to `outreach-log.md`**: the ranker drops anyone named there, which would delete their tracking row. `outreach-log.md` stays for warm contacts and email.
 
-Status flow: `queued -> drafted -> sent -> (followed_up) -> replied | no_reply` (or `skipped`).
+Status flow: `queued -> drafted -> sent -> replied | no_reply` (or `skipped`). `followed_up` exists only on legacy rows.
 
 When Adel reports what happened, record it (names can be partial; ambiguous names resolve to people already in play):
 - Sent: `python tools/network_rank.py --mark sent "Amit Menon" "Osama" ...` (add `--date YYYY-MM-DD` if not today)
-- Followed up: `--mark followed_up "<name>"`
 - Reply: `--reply "<name>" --outcome referral|call|advice|not_hiring|declined --note "<what they said / next step>"`
 
-Rules: send by hand, weekdays. One follow-up only, 7 days after sending: "Hi [first name], just following up on my note last week. No worries if it's not the right time. Thank you." Close as no reply 7 days after that.
+Rules: send by hand, weekdays. **No follow-ups**: one message per person; close as no reply 21 days after sending. Do not put a follow-up template in the drafts file.
 
 End with one compact block:
 
@@ -71,5 +69,5 @@ End with one compact block:
 ## Network pass - YYYY-MM-DD
 queue: day <D> of <total days>; sent <n>, replied <n> (<rate>)
 drafted: <N> -> documents/context/network-drafts-YYYY-MM-DD.md
-follow-ups due: <n>; replies to act on: <n>
+closed as no reply: <n>; replies to act on: <n>
 ```

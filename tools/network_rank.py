@@ -106,10 +106,9 @@ JUNIOR = r"\bintern\b|internship|trainee|\bstudent\b|inten\b"
 TECH_CO = (r"cyber|secur|\bsoc\b|tech|\bai\b|data|digital|software|\bit\b|infotech|"
            r"solutions|systems|cloud|network|redforce|haboob|callsign|consult|bank|capital|financ")
 STATUSES = ("queued", "drafted", "sent", "followed_up", "replied", "no_reply", "skipped")
-OUTCOMES = ("referral", "call", "advice", "not_hiring", "declined")
+OUTCOMES = ("referral", "call", "advice", "pending", "not_hiring", "declined")
 TRACK = ("sent_on", "followup_on", "replied_on", "outcome", "notes")
-FOLLOW_UP_AFTER = 7   # days after sending with no reply: one short follow-up
-CLOSE_AFTER = 7       # days after the follow-up with no reply: mark no_reply
+NO_REPLY_AFTER = 21   # days after sending with no reply: mark no_reply (never follow up - Adel, 2026-10-19)
 
 
 def load_connections(path):
@@ -353,16 +352,14 @@ def report(today):
             print(f"- {r['name']} ({r['company']}): {extra(r)}")
         print()
 
-    table("Replies to act on", [r for r in replied if r["outcome"] in ("referral", "call", "advice")],
+    table("Replies to act on", [r for r in replied if r["outcome"] in ("referral", "call", "advice", "pending")],
           lambda r: f"{r['outcome']}, replied {days_since(r['replied_on'], today)}d ago. {r['notes']}")
-    table(f"Follow-up due (sent {FOLLOW_UP_AFTER}+ days ago, no reply)",
-          [r for r in contacted if r["status"] == "sent" and days_since(r["sent_on"], today) >= FOLLOW_UP_AFTER],
+    table(f"Close as no reply (sent {NO_REPLY_AFTER}+ days ago; never follow up)",
+          [r for r in contacted if r["status"] in ("sent", "followed_up")
+           and days_since(r["sent_on"], today) >= NO_REPLY_AFTER],
           lambda r: f"sent {days_since(r['sent_on'], today)}d ago")
-    table(f"Close as no reply (followed up {CLOSE_AFTER}+ days ago)",
-          [r for r in contacted if r["status"] == "followed_up" and days_since(r["followup_on"], today) >= CLOSE_AFTER],
-          lambda r: f"followed up {days_since(r['followup_on'], today)}d ago")
     table("Waiting", [r for r in contacted if r["status"] in ("sent", "followed_up")
-                      and days_since(r["followup_on"] or r["sent_on"], today) < FOLLOW_UP_AFTER],
+                      and days_since(r["sent_on"], today) < NO_REPLY_AFTER],
           lambda r: f"sent {days_since(r['sent_on'], today)}d ago"
                     + (f", followed up {days_since(r['followup_on'], today)}d ago" if r["followup_on"] else ""))
     table("Drafted, not yet sent", [r for r in rows if r["status"] == "drafted"], lambda r: f"day {r['day']}")

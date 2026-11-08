@@ -125,9 +125,7 @@ def main():
         f'<a class="btn ghost" href="{e(p["url"])}" target="_blank" rel="noopener">Open profile</a>'
         f'<button class="primary copy">Copy message</button></div></div>'
         for i, p in enumerate(people))
-    follow_html = (f'<div class="card"><div class="name">Follow-up (7 days after, no reply, once)</div>'
-                   f'<div class="msg">{e(follow)}</div><div class="btns"><button class="ghost copyfollow" '
-                   f'data-text="{e(follow)}">Copy follow-up</button></div></div>') if follow else ""
+    follow_html = ""  # no follow-ups, ever (Adel, 2026-10-19)
     out = src.with_suffix(".html")
     out.write_text(PAGE.format(title=e(src.stem.replace("network-drafts-", "")), cards=cards, follow=follow_html,
                                people=json.dumps(people, ensure_ascii=False).replace("</", "<\\/"),

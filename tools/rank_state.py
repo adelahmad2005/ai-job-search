@@ -107,6 +107,21 @@ def norm(text) -> str:
     )
 
 
+# Portals and the tracker spell some employers differently ("Hewlett Packard
+# Enterprise" on LinkedIn, "HPE" in the tracker); map normalized long forms to
+# one canonical name so the tracker exclusion still matches.
+COMPANY_ALIASES = {
+    "hewlettpackardenterprise": "hpe",
+    "amazonwebservices": "aws",
+    "internationalbusinessmachines": "ibm",
+}
+
+
+def norm_company(text) -> str:
+    company = norm(text)
+    return COMPANY_ALIASES.get(company, company)
+
+
 def tracker_pairs(path: Path) -> set[tuple[str, str]]:
     """company+role pairs already in the tracker - out of scope for ranking."""
     if not path.is_file():
@@ -116,7 +131,7 @@ def tracker_pairs(path: Path) -> set[tuple[str, str]]:
     pairs = set()
     with path.open(encoding="utf-8-sig", newline="") as fh:
         for row in csv.DictReader(fh):
-            company, role = norm(row.get("company")), norm(row.get("role"))
+            company, role = norm_company(row.get("company")), norm(row.get("role"))
             if company:
                 pairs.add((company, role))
     return pairs
@@ -145,7 +160,7 @@ def cmd_candidates(args) -> int:
                 continue
         elif status != "new":
             continue
-        if (norm(entry.get("company")), norm(entry.get("title"))) in excluded:
+        if (norm_company(entry.get("company")), norm(entry.get("title"))) in excluded:
             skipped_tracker += 1
             continue
         if args.focus:

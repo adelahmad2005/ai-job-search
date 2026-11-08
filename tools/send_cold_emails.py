@@ -58,6 +58,8 @@ def main():
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--allow-after-bounce", action="store_true",
                     help="send despite a bounce in the last 7 days (only with Adel's explicit OK)")
+    ap.add_argument("--allow-company-repeat", action="store_true",
+                    help="skip the 7-day gap between people at one company (only with Adel's explicit OK)")
     a = ap.parse_args()
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
@@ -72,12 +74,24 @@ def main():
         sys.exit(f"Paused: {len(recent)} bounce(s) in the last {BOUNCE_PAUSE_DAYS} days (latest {last}). "
                  f"Re-verify formats, then ask Adel before re-running with --allow-after-bounce.")
 
-    done = {r["email"].lower() for r in rows}
-    todo, problems = [], []
+    # queued rows were researched but never emailed, so they are still sendable
+    done = {r["email"].lower() for r in rows if r["email"] and r["status"] != "queued"}
+    todo, problems, batch_cos = [], [], set()
     for e in batch:
         if e["email"].lower() in done:
             print(f"  skip (already in tracker): {e['name']} <{e['email']}>")
             continue
+        # One person per company per run, and 7+ days since the last email there (Adel, 2026-10-19)
+        co = e["co"].casefold()
+        if co in batch_cos:
+            print(f"  REFUSED (second person at {e['co']} in one run): {e['name']} <{e['email']}>")
+            continue
+        last = [cold_email.days_ago(r["sent_on"]) for r in rows
+                if r["sent_on"] and r["company"].casefold() == co]
+        if last and min(d for d in last if d is not None) < 7 and not a.allow_company_repeat:
+            print(f"  REFUSED ({e['co']} emailed under 7 days ago): {e['name']} <{e['email']}>")
+            continue
+        batch_cos.add(co)
         if e.get("conf") not in ("verified", "high") or not e.get("evidence"):
             print(f"  REFUSED (address not proven - conf={e.get('conf')!r}, evidence missing?): "
                   f"{e['name']} <{e['email']}> -> contact on LinkedIn instead")
@@ -117,10 +131,15 @@ def main():
 
     if sent:
         rows = cold_email.load()
-        seen = {r["email"].lower() for r in rows}
+        by_email = {r["email"].lower(): r for r in rows if r["email"]}
         today = date.today().isoformat()
         for e in sent:
-            if e["email"].lower() in seen:
+            row = by_email.get(e["email"].lower())
+            if row:
+                if row["status"] == "queued":
+                    row.update(status="sent", sent_on=today, confidence=e.get("conf", ""),
+                               notes=(row["notes"] + " | " if row["notes"] else "")
+                               + f"subject: {e['subj']} | CV cv/{e['cv']}")
                 continue
             rows.append(dict(date=today, company=e["co"], name=e["name"], title=e.get("title", ""), location="UAE",
                              source="LinkedIn " + e.get("url", ""), email=e["email"], email_basis=e.get("basis", ""),

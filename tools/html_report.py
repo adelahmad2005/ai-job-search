@@ -148,15 +148,15 @@ def linkedin_section():
     st = Counter(r["status"] for r in q)
     replied = [r for r in msgd if r["status"] == "replied"]
     waiting = [r for r in msgd if r["status"] in ("sent", "followed_up")]
-    due = [r for r in msgd if r["status"] == "sent" and (days_ago(r["sent_on"]) or 0) >= 7]
-    close = [r for r in msgd if r["status"] == "followed_up" and (days_ago(r["followup_on"]) or 0) >= 7]
+    # No follow-ups (Adel, 2026-10-19); unanswered messages close as no reply after 21 days.
+    close = [r for r in waiting if (days_ago(r["sent_on"]) or 0) >= 21]
     act = [r for r in replied if r.get("outcome") in ("referral", "call", "advice")]
     left = st["queued"]
     total_days = max([int(r["day"] or 0) for r in q] + [0])
     rate = f"{round(100 * len(replied) / len(msgd))}%" if msgd else "n/a"
 
     cards = [("Messaged", len(msgd), "#0f172a"), ("Replied", f"{len(replied)} <small>({rate})</small>", LI_COL["replied"]),
-             ("Awaiting reply", len(waiting), LI_COL["sent"]), ("Follow-ups due", len(due), LI_COL["followed_up"]),
+             ("Awaiting reply", len(waiting), LI_COL["sent"]),
              ("Skipped", st["skipped"], LI_COL["skipped"]), ("Left in queue", left, "#94a3b8")]
     card_html = "".join(f'<div class="card" style="border-left-color:{c}"><div class="n">{n}</div>'
                         f'<div class="l">{e(t)}</div></div>' for t, n, c in cards)
@@ -170,12 +170,9 @@ def linkedin_section():
         return (f'<li><a href="{e(r["url"])}" target="_blank" rel="noopener">{e(r["name"].split(",")[0])}</a> '
                 f'<span class="muted">· {e(r["company_group"])}</span> — {e(extra)}</li>')
     todo = ([item(r, f'{r["outcome"]}: {r.get("notes") or "reply received"}') for r in act]
-            + [item(r, f'follow-up due, sent {days_ago(r["sent_on"])}d ago') for r in due]
-            + [item(r, f'close as no reply, followed up {days_ago(r["followup_on"])}d ago') for r in close])
-    next_due = min((date.fromisoformat(r["sent_on"]).toordinal() + 7 for r in waiting if r["status"] == "sent"), default=None)
+            + [item(r, f'close as no reply, sent {days_ago(r["sent_on"])}d ago') for r in close])
     todo_html = ("<ul class=\"todo\">" + "".join(todo) + "</ul>") if todo else (
-        f'<p class="muted">Nothing to act on today.'
-        + (f' First follow-ups due {date.fromordinal(next_due).isoformat()}.' if next_due else "") + "</p>")
+        '<p class="muted">Nothing to act on today.</p>')
 
     trs = []
     for r in sorted(msgd, key=lambda r: (r["sent_on"], r["company_group"]), reverse=True):
@@ -199,7 +196,7 @@ def linkedin_section():
 <section class="tablecard"><div class="tools"><h3>People messaged ({len(msgd)})</h3></div>
 <div class="wrap"><table><thead><tr><th>Name</th><th>Company</th><th>Position</th><th>Sent</th><th>Status</th><th>Outcome</th><th>Notes</th></tr></thead>
 <tbody>{"".join(trs)}</tbody></table></div>
-<p class="note">One follow-up after 7 days with no reply; closed as no reply 7 days after that. Source: network-queue.csv.</p></section>"""
+<p class="note">No follow-ups are sent; a message with no reply after 21 days is closed as no reply. Source: network-queue.csv.</p></section>"""
 
 
 # ---- Cold email outreach (cold-email-targets.csv, written by tools/cold_email.py) ----
@@ -222,14 +219,13 @@ def cold_email_section():
     replied = [r for r in mailed if r["status"] == "replied"]
     waiting = [r for r in mailed if r["status"] in ("sent", "followed_up")]
     bounced = [r for r in mailed if r["status"] == "bounced"]
-    due = [r for r in mailed if r["status"] == "sent" and (days_ago(r["sent_on"]) or 0) >= 7]
-    close = [r for r in mailed if r["status"] == "followed_up" and (days_ago(r["followup_on"]) or 0) >= 7]
+    # No follow-ups (Adel, 2026-10-19); unanswered emails close as no reply after 21 days.
+    close = [r for r in waiting if (days_ago(r["sent_on"]) or 0) >= 21]
     act = [r for r in replied if r["outcome"] in ("interview", "referral", "call", "advice")]
     rate = f"{round(100 * len(replied) / len(delivered))}%" if delivered else "n/a"
     cards = [("Emailed", len(mailed), "#0f172a"), ("Delivered", len(delivered), CE_COL["sent"]),
              ("Replied", f"{len(replied)} <small>({rate})</small>", CE_COL["replied"]),
-             ("Awaiting reply", len(waiting), CE_COL["sent"]), ("Follow-ups due", len(due), CE_COL["followed_up"]),
-             ("Bounced", len(bounced), CE_COL["bounced"])]
+             ("Awaiting reply", len(waiting), CE_COL["sent"]), ("Bounced", len(bounced), CE_COL["bounced"])]
     card_html = "".join(f'<div class="card" style="border-left-color:{c}"><div class="n">{n}</div>'
                         f'<div class="l">{e(t)}</div></div>' for t, n, c in cards)
     funnel = [("Emailed", len(mailed)), ("Delivered", len(delivered)), ("Replied", len(replied)),
@@ -244,8 +240,7 @@ def cold_email_section():
     def item(r, extra):
         return (f'<li><b>{e(r["name"])}</b> <span class="muted">· {e(r["company"])}</span> — {e(extra)}</li>')
     todo = ([item(r, f'{r["outcome"]}: {r["notes"][-120:]}') for r in act]
-            + [item(r, f'follow-up due, sent {days_ago(r["sent_on"])}d ago') for r in due]
-            + [item(r, f'close as no reply, followed up {days_ago(r["followup_on"])}d ago') for r in close]
+            + [item(r, f'close as no reply, sent {days_ago(r["sent_on"])}d ago') for r in close]
             + [item(r, 'bounced: reach on LinkedIn or find another contact') for r in bounced])
     todo_html = ('<ul class="todo">' + "".join(todo) + "</ul>") if todo else '<p class="muted">Nothing to act on today.</p>'
     trs = []
@@ -271,7 +266,7 @@ def cold_email_section():
 <section class="tablecard"><div class="tools"><h3>People emailed ({len(mailed)})</h3></div>
 <div class="wrap"><table><thead><tr><th>Name</th><th>Company</th><th>Title</th><th>Type</th><th>Email</th><th>Sent</th><th>Status</th><th>Outcome</th></tr></thead>
 <tbody>{"".join(trs)}</tbody></table></div>
-<p class="note">One follow-up after 7 days with no reply; closed as no reply 7 days after that. Source: cold-email-targets.csv (/coldemail).</p></section>"""
+<p class="note">No follow-ups are sent; an email with no reply after 21 days is closed as no reply. Source: cold-email-targets.csv (/coldemail).</p></section>"""
 
 
 today = date.today().isoformat()

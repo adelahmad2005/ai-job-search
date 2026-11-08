@@ -1,6 +1,6 @@
 # /followup - One Pass Over Replies, Quiet Applications and Deadlines
 
-You are running the whole "chase" routine in one command. It adds no new rules: it runs three existing flows in order and merges their output into one short report. Every rule of the underlying commands still applies - above all, **nothing is sent**: follow-ups are drafts for the user to send, and tracker writes need the user's approval.
+You are running the whole "chase" routine in one command. It adds no new rules: it runs three existing flows in order and merges their output into one short report. Every rule of the underlying commands still applies - above all, **nothing is sent and no follow-ups are drafted** (Adel's rule, 2026-10-19), and tracker writes need the user's approval.
 
 `$ARGUMENTS` may contain a number of days (e.g. `/followup 14`) to override the 10-day quiet threshold passed to Step 2.
 
@@ -14,13 +14,11 @@ If the Gmail MCP tools (`mcp__claude_ai_Gmail__*`) are available and authenticat
 
 Running this first matters: an application that got a reply must not be chased in Step 2.
 
-## Step 2: Chase quiet applications
+## Step 2: List quiet applications (no chasing)
 
-Run the follow-up branch of `/outcome` (`.claude/commands/outcome.md`, Step 2b) over every open application, with the threshold from `$ARGUMENTS` or the default 10 days. Its rules apply unchanged: `drafted` rows are never chased, at most two follow-ups per application, no claims beyond the archived submitted materials, and log a follow-up only once the user confirms it was sent.
+**Never draft or send follow-ups to employers** (Adel, 2026-10-19: following up is harassment/spam; if they don't answer, so be it). Do not run `/outcome` Step 2b's follow-up drafting.
 
-When the candidate table is presented, add one column the branch does not have: **channel to use** - `email` when the tracker's `contact_person` or the archive has a recruiter or hiring-manager email, otherwise `LinkedIn message` (the draft is the same text, trimmed under 300 characters for a connection note). Do not look up or guess contact details that are not already in the tracker or archive.
-
-If no application is past the threshold, say when the next one becomes due (earliest `date` + threshold) and move on.
+Instead, list open applications (`applied` / `submitted`) with no reply after the threshold from `$ARGUMENTS` (default 10 days) as information only, and ask whether any should be closed as `no response` via `/outcome`.
 
 ## Step 3: Deadlines and graduate programmes
 
@@ -33,7 +31,7 @@ End with one compact block:
 ```
 ## Follow-up pass - YYYY-MM-DD
 gmail: <N changes applied | not connected>
-follow-ups: <N drafted for: Company (Role), ...> | none due - next due YYYY-MM-DD (Company)
+quiet applications: <N listed: Company (Role), ...> | none (no follow-ups are ever sent)
 deadlines: <items from Step 3, most urgent first> | none
 ```
 
