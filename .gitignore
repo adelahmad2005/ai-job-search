@@ -128,3 +128,5 @@ documents/context/network-by-company.md
 documents/context/network-drafts-*
 documents/context/cold-email-targets.csv
 documents/context/cold-emails-*
+documents/context/coldbatch-*.json
+documents/context/coldsend-*.log
